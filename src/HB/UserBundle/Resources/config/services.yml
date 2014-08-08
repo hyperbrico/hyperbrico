@@ -1,0 +1,7 @@
+parameters:
+#    hb_user.example.class: HB\UserBundle\Example
+
+services:
+#    hb_user.example:
+#        class: %hb_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

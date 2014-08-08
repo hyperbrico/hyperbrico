@@ -1,0 +1,13 @@
+{% extends "HBHyperbricoBundle::layoutNewsletter.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Newsletter 
+{% endblock %}
+ 
+{% block contenu %}
+ <h2>Actions</h2>
+ <hr />
+  <a class="plain" href="{{ path('hb_hyperbrico_voirAdressesNewsletter') }}" target="_top">Gérer les adresses de la newsletter.</a><br />
+  <a class="plain" href="{{ path('hb_hyperbrico_envoyerNewsletter') }}" target="_top">Envoyer une newsletter.</a>
+
+{% endblock %}

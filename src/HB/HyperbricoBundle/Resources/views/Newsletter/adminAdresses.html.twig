@@ -1,0 +1,40 @@
+{% extends "HBHyperbricoBundle::layoutNewsletterAdmin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Gérer les adresses
+{% endblock %}
+
+{% block active %}
+  {{ parent() }}<li class="active">Adresses</li>
+{% endblock %}
+ 
+{% block contenu %}
+ <h2>Les adresses de la newsletter</h2>
+ <p><a href="{{ path('hb_hyperbrico_envoyerNewsletter') }}">Envoyer une newsletter</a><br /><a href="{{ path('hb_hyperbrico_adminNewsletter') }}">Gestion des newsletters</a></p>
+ <table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Adresse mail</th>
+      <th>Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for adresse in adresses %}
+      <tr>
+        <td>
+          {{ loop.index }}
+        </td>
+        <td>
+          {{ adresse.mail }}
+        </td>
+        <td>
+          <a href="{{ path('hb_hyperbrico_supprimerNewsletter', {'id': adresse.id}) }}">Supprimer</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<br />
+
+{% endblock %}

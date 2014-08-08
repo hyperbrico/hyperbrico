@@ -1,0 +1,11 @@
+{% extends "::layout.html.twig" %}
+
+{% block chemin %}
+
+{{ parent() }} {% block active %}<li><a href="{{ path('hb_hyperbrico_news') }}">News</a> <span class="divider">/</span></li>{% endblock %}
+
+{% endblock %}
+
+{% block newsActive %}
+	class="active"
+{% endblock %}

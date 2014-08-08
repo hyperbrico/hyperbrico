@@ -1,0 +1,67 @@
+{{ form_start(form) }}
+{% if form_errors(form) %}
+<div class="control-group error">
+  <span class="help-inline">{{ form_errors(form)|nl2br }}</span>
+</div>
+{% endif %}
+
+<div class="control-group{% if form_errors(form.datePubDebut) %} error{% endif %}">
+  {{ form_label(form.datePubDebut) }}
+  <div class="controls">
+    {{ form_widget(form.datePubDebut) }}
+    {% if form_errors(form.datePubDebut) %}<span class="help-inline">{{ form_errors(form.datePubDebut) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.datePubFin) %} error{% endif %}">
+  {{ form_label(form.datePubFin) }}
+  <div class="controls">
+    {{ form_widget(form.datePubFin) }}
+    {% if form_errors(form.datePubFin) %}<span class="help-inline">{{ form_errors(form.datePubFin) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.dateDebut) %} error{% endif %}">
+  {{ form_label(form.dateDebut) }}
+  <div class="controls">
+    {{ form_widget(form.dateDebut) }}
+    {% if form_errors(form.dateDebut) %}<span class="help-inline">{{ form_errors(form.dateDebut) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.dateFin) %} error{% endif %}">
+  {{ form_label(form.dateFin) }}
+  <div class="controls">
+    {{ form_widget(form.dateFin) }}
+    {% if form_errors(form.dateFin) %}<span class="help-inline">{{ form_errors(form.dateFin) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.titre) %} error{% endif %}">
+  {{ form_label(form.titre) }}
+  <div class="controls">
+    {{ form_widget(form.titre) }}
+    {% if form_errors(form.titre) %}<span class="help-inline">{{ form_errors(form.titre) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.description) %} error{% endif %}">
+  {{ form_label(form.description) }}
+  <div class="controls">
+    {{ form_widget(form.description) }}
+    {% if form_errors(form.description) %}<span class="help-inline">{{ form_errors(form.description) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.file) %} error{% endif %}">
+  {{ form_label(form.file) }}
+  <div class="controls">
+    {{ form_widget(form.file) }}
+    {% if form_errors(form.file) %}<span class="help-inline">{{ form_errors(form.file) }}</span>{% endif %}
+    <br /><br />
+    <button id="submit" type="submit" class="btn btn-hyperbrico">{% block submit %}{% endblock %}</button> 
+    <img id="loading" src="{{ asset('img/loading-metro.gif') }}" alt="loading" style="display:none; height:30px" />
+  </div>
+</div>
+
+{{ form_end(form) }}

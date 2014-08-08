@@ -1,0 +1,15 @@
+{% extends "::layout.html.twig" %}
+
+{% block chemin %}
+
+ {{ parent() }} {% block active %}<li><a href="{{ path('hb_hyperbrico_archivesNews') }}">Les anciennes news</a> <span class="divider">/</span></li>{% endblock %}
+
+{% endblock %}
+
+{% block soustitre %}
+	<h1>Les anciennes news</h1>
+{% endblock %}
+
+{% block newsActive %}
+	class="active"
+{% endblock %}

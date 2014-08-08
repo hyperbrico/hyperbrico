@@ -1,0 +1,24 @@
+{% extends "HBHyperbricoBundle::layoutNewsArchives.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Archives des news 
+{% endblock %}
+
+{% block active %}
+  <li class="active">Les anciennes news</li>
+{% endblock %}
+
+{% block contenu %}
+  {% for nouvelle in news %}
+    <h2>{{ nouvelle.titre }}</h2>
+    {% if app.user and is_granted("ROLE_ADMIN") %}
+      par {{ nouvelle.auteur }}, le {{ nouvelle.dateCreation|localizeddate('full', 'none') }} <br />
+    {% endif %}
+    <div>
+      {{ nouvelle.contenu|slice(0,999)|raw }}{% if nouvelle.contenu|length > 1000 %}... <a href="{{ path('hb_hyperbrico_voirNews', {'news_slug': nouvelle.slug}) }}">Lire la suite</a>{% endif %}
+    </div>
+  {% else %}
+    <p>Aucune news pour le moment.</p>
+  {% endfor %}
+
+{% endblock %}

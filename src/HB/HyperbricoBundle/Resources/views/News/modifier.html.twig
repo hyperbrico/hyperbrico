@@ -1,0 +1,33 @@
+{% extends "HBHyperbricoBundle::layoutNewsAdmin.html.twig" %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/jquery-ui.css" type="text/css" />
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }} - Modification de " {{ news.titre }} "
+{% endblock %}
+
+{% block chemin %}
+
+ {{ parent() }} <li class="active">Modifier</li>
+
+{% endblock %}
+
+{% block contenu %}
+	<h2>Modifier une news</h2>
+	{% embed "HBHyperbricoBundle:News:formulaire.html.twig" %}
+		{% block submit %}
+			Modifier
+		{% endblock %}
+	{% endembed %}
+{% endblock %}
+
+{% block javascripts %}
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="{{ asset('js/date.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+  <script type="text/javascript">
+    CKEDITOR.replace( 'hb_hyperbricobundle_newstype[contenu]' );
+  </script>
+{% endblock %}

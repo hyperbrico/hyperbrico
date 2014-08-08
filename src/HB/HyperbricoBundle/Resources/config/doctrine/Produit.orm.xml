@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="HB\HyperbricoBundle\Entity\ProduitRepository" table="sf_produit" name="HB\HyperbricoBundle\Entity\Produit">
+    <id name="id" type="integer" column="id">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="designation" type="string" column="designation" length="255" nullable="false"/>
+    <field name="reference" type="string" column="reference" length="255" nullable="false"/>
+    <field name="prix" type="integer" column="prix" nullable="false"/>
+    <field name="marque" type="string" column="marque" length="255" nullable="true"/>
+    <field name="description" type="string" column="description" length="255" nullable="true"/>
+    <field name="tva" type="integer" column="tva" length="255" nullable="true"/>
+    <field name="page" type="integer" column="page" nullable="false"/>
+    <many-to-one field="catalogue" target-entity="HB\HyperbricoBundle\Entity\Catalogue" inversed-by="produits">
+        <join-column name="catalogue_id" referenced-column-name="id" nullable="false"/>
+    </many-to-one>
+    <unique-constraints>
+        <unique-constraint columns="catalogue_id,reference" />
+    </unique-constraints>
+  </entity>
+</doctrine-mapping>

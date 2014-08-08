@@ -1,0 +1,14 @@
+{% extends "::layout.html.twig" %}
+
+{% block titre %}
+  {{ parent() }} - Erreur 404 
+{% endblock %}
+
+{% block contenu %}
+	<h1>Erreur 404 !</h1>
+	<p>La page que vous cherchez n'existe pas !</p> 
+{% endblock %}
+
+{% block chemin %}
+	{{ parent() }} <li class="active">Erreur 404</li>
+{% endblock %}

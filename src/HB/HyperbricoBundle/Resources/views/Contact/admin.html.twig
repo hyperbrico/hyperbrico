@@ -1,0 +1,47 @@
+{% extends "HBHyperbricoBundle::layoutContactAdmin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Gérer les contacts
+{% endblock %}
+
+{% block active %}
+  <li class="active">Contact</li>
+{% endblock %}
+
+{% block contenu %}
+ <h2>Les contacts</h2>
+ <table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>Sujet</th>
+      <th>Nom</th>
+      <th>Date</th>
+      <th>Statut</th>
+      <th>Modifier</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for contact in contacts %}
+      <tr>
+        <td>
+          <a href="{{ path('hb_hyperbrico_voirMailContact', {'id': contact.id, 'token': contact.token}) }}">{{ contact.sujet }}</a>
+        </td>
+        <td>
+          {{ contact.nom }}
+        </td>
+        <td>
+          {{ contact.dateEnvoi|date('d/m/y') }}
+        </td>
+        <td>
+          {{ contact.statut }}
+        </td>
+        <td>
+          <a href="{{ path('hb_hyperbrico_gererContact', {'id': contact.id}) }}">Gérer</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<br />
+
+{% endblock %}

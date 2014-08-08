@@ -1,0 +1,116 @@
+{% extends "HBHyperbricoBundle::layoutCommande.html.twig" %}
+
+{% block IE %}
+  <!--[if lt IE 9]>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+  <![endif]-->
+{% endblock %}
+
+{% block titre %}
+  {{ parent() }} - Recapitulatif de votre demande du {{ commande.dateDemande|date('d/m/y') }}
+{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/recapitulation.css') }}" type="text/css" />
+{% endblock %}
+ 
+{% block active %}
+  <li class="active">Recapitulatif de votre demande du {{ commande.dateDemande|date('d/m/y') }}</li>
+{% endblock %}
+
+{% block soustitre %}
+  <h1>Recapitulatif de votre demande du {{ commande.dateDemande|date('d/m/y') }}</h1>
+{% endblock %}
+
+{% set total = 0 %}
+{% for article in commande.lignesDeCommande %}
+  {% set total = total + (article.prix * article.quantite) %}
+{% endfor %}
+
+{% set officiel = false %}
+{% for article in commande.lignesDeCommande if article.type == 'Officiel' %}
+  {% set officiel = true %}
+{% endfor %}
+
+{% set perso = false %}
+{% for article in commande.lignesDeCommande if article.type == 'Perso' %}
+  {% set perso = true %}
+{% endfor %}
+
+{% block contenu %}
+  <h2>Produits du catalogue ou de la promotion</h2>
+  {% if officiel %}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Référence</th>
+          <th>Désignation</th>
+          <th>Qté</th>
+          <th>Prix Unitaire</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for article in commande.lignesDeCommande if article.type == 'Officiel' %}
+          <tr>
+            <td>{{ article.reference }}</td>
+            <td>{{ article.designation }}</td>
+            <td>{{ article.quantite }}</td>
+            <td>{{ article.prix|number_format(2, ',', ' ') }} XPF</td>
+            <td>{{ (article.prix * article.quantite)|number_format(2, ',', ' ') }} XPF</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="text-right"><strong>Total:</strong> {{ total|number_format(2, ',', ' ') }} XPF</p>
+  {% else %}
+    <p>Aucun produits.</p>
+  {% endif %}
+  <h2>Autre produits</h2>
+  {% if perso %}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Référence</th>
+          <th>Description</th>
+          <th>Marque</th>
+          <th>Qté</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for article in commande.lignesDeCommande if article.type == 'Perso' %}
+          <tr>
+            <td>{{ article.reference }}</td>
+            <td>{{ article.description }}</td>
+            <td>{{ article.marque }}</td>
+            <td>{{ article.quantite }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Aucun produits.</p>
+  {% endif %}
+  <h2>Vos informations</h2>
+  <address>
+    <strong>{{ commande.nom|capitalize }} {{ commande.prenom|capitalize }}</strong><br />
+    Téléphone domicile: {{ commande.numeroMaison }}<br />
+    Téléphone portable: {{ commande.numeroVini }}<br />
+    Mail: {{ commande.mail }}<br />
+    Adresse: {{ commande.lieuHabitation }}<br />
+    {% if not commande.ile is sameas('tahiti') %}
+      Ile: {{ commande.ile }}<br />
+      Nom du bateau: {{ commande.nomBateau }}<br />
+      Date de départ du bateau: {{ commande.dateDepartBateau|localizeddate('full', 'none') }}<br />
+      Fret à destination: {{ commande.fretADestination }}
+    {% endif %}
+  </address>
+  {% if commande.informationComplementaire %}
+    <h2>Informations complémentaires</h2>
+    <span style="white-space:pre-wrap;">{{ commande.informationComplementaire }}</span>
+  {% endif %}
+
+{% endblock %}
+
+{% block footer %}<div id="footer">{% endblock %}
+{% block footerferme %}</div>{% endblock %}

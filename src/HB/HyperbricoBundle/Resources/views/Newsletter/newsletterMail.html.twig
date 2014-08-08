@@ -1,0 +1,21 @@
+{% extends "HBHyperbricoBundle::layoutMail.html.twig" %}
+
+{% block lienVoir %}
+	http://{{app.request.server.get('HTTP_HOST')}}{{ path('hb_hyperbrico_voirNewsletter', {'id': newsletter.id, 'mail': adresse.mail, 'token': adresse.token}) }}
+{% endblock %}
+
+{% block title %}
+  {{ newsletter.objet }}
+{% endblock %}
+
+{% block soustitre %}
+  {{ newsletter.objet }}
+{% endblock %}
+
+{% block contenu %}
+  {{ newsletter.contenu | raw }}
+{% endblock %}
+
+{% block lienDesinscription %}
+	<span style="color:#000000; font-size:11px; text-decoration:none">Si vous ne souhaitez plus recevoir les newsletters de «HYPER BRICO», vous pouvez vous </span><a style="color:#000000; font-size:11px; text-decoration:none" href="http://{{app.request.server.get('HTTP_HOST')}}{{ path('hb_hyperbrico_desinscriptionNewsletter', {'mail': adresse.mail, 'token': adresse.token}) }}"><span style="color:#000000; font-size:11px; text-decoration:none"><u>désinscrire.</u></span></a>
+{% endblock %}

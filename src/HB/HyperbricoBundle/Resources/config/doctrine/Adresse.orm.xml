@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="HB\HyperbricoBundle\Entity\Adresse" table="sf_adresse" repository-class="HB\HyperbricoBundle\Entity\AdresseRepository">
+    <id name="id" type="integer" column="id">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="mail" type="string" column="mail" length="255" nullable="false"/>
+    <field name="token" type="string" column="token" length="255" nullable="false"/>
+  </entity>
+</doctrine-mapping>

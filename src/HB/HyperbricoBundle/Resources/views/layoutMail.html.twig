@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta content="width=device-width">
+  <style type="text/css">
+  /* Fonts and Content */
+  body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; font-size:14px; }
+  body { background-color: #f6f4f0; margin: 0; padding: 0; -webkit-text-size-adjust:none; -ms-text-size-adjust:none; }
+  h2{ padding-top:12px; /* ne fonctionnera pas sous Outlook 2007+ */color:#0E7693; font-size:22px; }
+  </style>
+
+</head>
+<body style="margin:0px; padding:0px; -webkit-text-size-adjust:none;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:rgb(f6, f4, f0)" >
+    <tbody>
+      <tr>
+        <td align="center" bgcolor="#f6f4f0">
+          <table  cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td width="820" height="10"></td>
+              </tr>
+
+              <tr>
+                <td align="center" width="820" height="20" style="color:#000000;">
+                  <span style="color:#000000; font-size:11px; text-decoration:none">Si cet email ne s'affiche pas correctement, vous pouvez le visualiser grâce </span><a style="color:#000000; font-size:11px; text-decoration:none" href="{% block lienVoir %}{% endblock %}"><span style="color:#000000; font-size:11px; text-decoration:none"><u>à ce lien</u></span></a>
+                </td>
+              </tr>
+              <tr>
+                <td width="820" height="10"></td>
+              </tr>
+
+
+              <!-- entete -->
+              <tr class="pagetoplogo">
+                <td width="820">
+                  <table width="820" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
+                    <tbody>
+                      <tr>
+                        <td width="30"></td>
+                        <td width="760" valign="middle" align="left">
+                          <div class="pagetoplogo-content" style="padding:10px 0;">
+                            <a href="http://{{app.request.server.get('HTTP_HOST')}}{{ path('hb_hyperbrico_accueil') }}"><img src="http://{{app.request.server.get('HTTP_HOST')}}{{ asset('img/logo.png') }}" alt="Logo HYPER BRICO" /></a> 
+                          </div>
+                        </td>
+                        <td width="30"></td>
+                      </tr>
+                      <tr>
+                        <td height="10" bgcolor="#60ad0f" colspan="3"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+
+              <!-- separateur horizontal -->
+              <tr>
+                <td width="820" height="1" bgcolor="#d7d6d6"></td>
+              </tr>
+
+              <!-- contenu -->
+              <tr class="content">
+                <td width="820" bgcolor="#ffffff">
+                  <table width="820" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                      <tr>
+                        <td width="30"></td>
+                        <td width="760">
+                          <!-- une zone de contenu -->
+                          <table width="760" cellpadding="0" cellspacing="0" border="0">
+                            <tbody>                                                            
+                              <tr>
+                                <td width="760">
+                                  <h1 style="color:#60ad0f; font-size:28px; padding-top:12px;">
+                                    {% block soustitre %}{% endblock %}  </h1>
+
+                                    <div class="article-content">
+                                      {% block contenu %}{% endblock %}
+                                      {% block image %}{% endblock %}
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td width="760" height="20"></td>
+                                </tr>
+                                <tr>
+                                  <td width="760" height="1" bgcolor="#c7c5c5"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <!-- fin zone -->
+
+                            <!-- une autre zone de contenu -->
+                            <table width="760" cellpadding="0" cellspacing="0" border="0">
+                              <tbody>                                                            
+                                <tr>
+                                  <td width="760">
+                                    <div align="left" class="article-content" style="padding:30px 0; color:#999999; text-align:center;">
+                                      HYPER BRICO PAPEETE, Avenue du Prince Hinoi, Tél 54 00 77, Fax 41 94 59, Ouvert de 7h à 18h du lundi au samedi<br />HYPER BRICO PUNAAUIA, P.K. 14,33 km, Tél 50 50 60, Fax 45 45 87, Ouvert de 7h à 17h30 du lundi au samedi
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                          <td width="30"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- pied de page -->
+                <tr class="pagebottom">
+                  <td width="820">
+                    <table width="820" cellpadding="0" cellspacing="0" border="0" bgcolor="#60ad0f">
+                      <tbody>
+                        <tr>
+                          <td height="10" bgcolor="#60ad0f"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <table width="820" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                      <tr>
+                        <td colspan="3" height="10"></td>
+                      </tr>
+                      <tr>
+                        <td width="30"></td>
+                        <td width="760" align="center" style="color:#000000;">
+                          {% block lienDesinscription %}{% endblock %}
+                        </td>
+                        <td width="30"></td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" height="10"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  </html>

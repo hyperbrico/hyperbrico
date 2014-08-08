@@ -1,0 +1,6 @@
+{% extends "HBHyperbricoBundle:Newsletter:newsletterMail.html.twig" %}
+
+{% block image %}
+  <p>Cliquez sur l'image ci-dessous pour visualiser {{ type == 'catalogue' ? 'le' :'la' }} {{ type }}.</p>
+  <a href="http://{{app.request.server.get('HTTP_HOST')}}{{ path('hb_hyperbrico_voir' ~ type|capitalize ~ 's', {'slug': catalogue.slug}) }}"><img src="http://{{app.request.server.get('HTTP_HOST')}}{{ asset('uploads/' ~ type ~ 's/') }}{{ catalogue.slug }}/{{ catalogue.slug }}{{ catalogue.nombrePages == 1 ? '' : '-0' }}.jpg" alt="{{ catalogue.titre }}" style="width:760px; display:block; margin:auto;" /></a>
+{% endblock %}

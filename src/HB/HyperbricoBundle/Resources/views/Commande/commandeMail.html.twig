@@ -1,0 +1,94 @@
+{% extends "HBHyperbricoBundle::layoutMail.html.twig" %}
+
+{% set total = 0 %}
+{% for article in panier %}
+  {% set total = total + (article.produit.prix * article.quantite) %}
+{% endfor %}
+
+{% block title %}
+  Demande de facture proforma du {{ information.dateDemande|date('d/m/y') }}
+{% endblock %}
+
+{% block lienVoir %}
+  http://{{app.request.server.get('HTTP_HOST')}}{{ path('hb_hyperbrico_recapitulationCommande', {'id': information.id, 'token': information.token}) }}
+{% endblock %}
+
+{% block soustitre %}
+  Demande de facture proforma du {{ information.dateDemande|date('d/m/y') }}
+{% endblock %}
+
+{% block contenu %}
+  <h2 style="color:#60ad0f; font-size:22px; padding-top:12px;">Produits du catalogue ou de la promotion</h2>
+    {% if not panier is empty %}
+      <table style="max-width:100%; background-color:transparent; border-collapse:collapse; border-spacing:0; width:100%; margin-bottom:20px;">
+        <thead>
+          <tr>
+            <th style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd; font-weight:bold; vertical-align:bottom;">Référence</th>
+            <th style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd; font-weight:bold; vertical-align:bottom;">Désignation</th>
+            <th style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd; font-weight:bold; vertical-align:bottom;">Qté</th>
+            <th style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd; font-weight:bold; vertical-align:bottom;">Prix Unitaire</th>
+            <th style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd; font-weight:bold; vertical-align:bottom;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for article in panier %}
+            <tr>
+              <td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;">{{ article.produit.reference }}</td>
+              <td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;">{{ article.produit.designation }}</td>
+              <td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;" align=center>{{ article.quantite }}</td>
+              <td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;">{{ article.produit.prix|number_format(2, ',', ' ') }} XPF</td>
+              <td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;">{{ (article.produit.prix * article.quantite)|number_format(2, ',', ' ') }} XPF</td>    
+            </tr>
+          {% endfor %}
+          <tr><td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;"></td><td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;"></td><td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;"></td><td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;"></td><td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;"><strong>Total:</strong> {{ total|number_format(2, ',', ' ') }} XPF</td></tr>
+        </tbody>
+      </table>
+    {% else %}
+      <p>Aucun produit.</p>
+    {% endif %}
+    <h2 style="color:#60ad0f; font-size:22px; padding-top:12px;">Autre produits</h2>
+    {% if not panierPerso is empty %}
+      <table style="max-width:100%; background-color:transparent; border-collapse:collapse; border-spacing:0; width:100%; margin-bottom:20px;">
+        <thead>
+          <tr>
+            <th style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd; font-weight:bold; vertical-align:bottom;">Référence</th>
+            <th style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd; font-weight:bold; vertical-align:bottom;">Description</th>
+            <th style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd; font-weight:bold; vertical-align:bottom;">Marque</th>
+            <th style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd; font-weight:bold; vertical-align:bottom;">Qté</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for article in panierPerso %}
+            <tr>
+              <td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;">{{ article.reference }}</td>
+              <td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;">{{ article.description }}</td>
+              <td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;">{{ article.marque }}</td>
+              <td style="padding:8px; line-height:20px; text-align:left; vertical-align:top; border-top:1px solid #dddddd;" align=center>{{ article.quantite }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Aucun produits.</p>
+    {% endif %}
+    <h2 style="color:#60ad0f; font-size:22px; padding-top:12px;">Informations</h2>
+    <p>
+      <strong>{{ information.nom|capitalize }} {{ information.prenom|capitalize }}</strong><br />
+      Téléphone domicile: {{ information.numeroMaison }}<br />
+      Téléphone portable: {{ information.numeroVini }}<br />
+      E-mail: {{ information.mail }}<br />
+      Adresse: {{ information.lieuHabitation }}<br />
+      {% if not information.ile is sameas('tahiti') %}
+        Ile: {{ information.ile }}<br />
+        Nom du bateau: {{ information.nomBateau }}<br />
+        Date de départ du bateau: {{ information.dateDepartBateau|localizeddate('full', 'none') }}<br />
+        Fret à destination: {{ information.fretADestination }}<br />
+      {% endif %}
+    </p>
+    <h2 style="color:#60ad0f; font-size:22px; padding-top:12px;">Informations complémentaires</h2>
+    {% if information.informationComplementaire %}
+      <span style="white-space:pre-wrap;">{{ information.informationComplementaire }}</span>
+    {% else %}
+      <i>Néant</i>
+    {% endif %}
+{% endblock %}

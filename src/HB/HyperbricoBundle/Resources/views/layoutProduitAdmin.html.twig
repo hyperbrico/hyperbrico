@@ -1,0 +1,7 @@
+{% extends "HBHyperbricoBundle::layoutAdmin.html.twig" %}
+
+{% block chemin %}
+
+ {{ parent() }} {% block active %}<li><a href="{{ path('hb_hyperbrico_adminCatalogue') }}">Produits</a> <span class="divider">/</span></li>{% endblock %}
+
+{% endblock %}

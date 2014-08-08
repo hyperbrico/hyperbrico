@@ -1,0 +1,67 @@
+<div class="collectionProduits" data-prototype="{% autoescape %}<tr><td>{% endautoescape %}{{ form_widget(form.produits.vars.prototype.reference)|e }}{% autoescape %}</td><td>{% endautoescape %}{{ form_widget(form.produits.vars.prototype.designation)|e }}{% autoescape %}</td><td>{% endautoescape %}{{ form_widget(form.produits.vars.prototype.marque)|e }}{% autoescape %}</td><td>{% endautoescape %}{{ form_widget(form.produits.vars.prototype.prix)|e }}{% autoescape %}</td><td>{% endautoescape %}{{ form_widget(form.produits.vars.prototype.tva)|e }}{% autoescape %}</td><td>{% endautoescape %}{{ form_widget(form.produits.vars.prototype.page)|e }}{% autoescape %}</td><td>{% endautoescape %}{{ form_widget(form.produits.vars.prototype.description)|e }}{% autoescape %}</td></tr>{% endautoescape %}">
+    {{ form_start(form) }}
+    {% if form_errors(form) %}
+      <div class="control-group error">
+        <span class="help-inline">{{ form_errors(form)|nl2br }}</span>
+      </div>
+    {% endif %}
+    <fieldset>
+      <legend>Par formulaire:</legend>
+      {% for produit in form.produits %}
+        {% if form_errors(produit.reference) %}<span class="text-error">{{ form_errors(produit.reference) }}</span><br />{% endif %}
+        {% if form_errors(produit.designation) %}<span class="text-error">{{ form_errors(produit.designation) }}</span><br />{% endif %}
+        {% if form_errors(produit.marque) %}<span class="text-error">{{ form_errors(produit.marque) }}</span><br />{% endif %}
+        {% if form_errors(produit.prix) %}<span class="text-error">{{ form_errors(produit.prix) }}</span><br />{% endif %}
+        {% if form_errors(produit.tva) %}<span class="text-error">{{ form_errors(produit.tva) }}</span><br />{% endif %}
+        {% if form_errors(produit.page) %}<span class="text-error">{{ form_errors(produit.page) }}</span><br />{% endif %}
+        {% if form_errors(produit.description) %}<span class="text-error">{{ form_errors(produit.description) }}</span><br />{% endif %}
+      {% endfor %}
+      {% for error in errors %}
+        {% if not error is empty %}
+          <span class="text-error">{{ error|split(':')[1] }}</span><br />
+        {% endif %}
+      {% endfor %}
+      <table class="collectionProduits2">
+        <thead>
+          <tr>
+            <th>{{ form_label(form.produits.vars.prototype.reference) }}</th>
+            <th>{{ form_label(form.produits.vars.prototype.designation) }}</th>
+            <th>{{ form_label(form.produits.vars.prototype.marque) }}</th>
+            <th>{{ form_label(form.produits.vars.prototype.prix) }}</th>
+            <th>{{ form_label(form.produits.vars.prototype.tva) }}</th>
+            <th>{{ form_label(form.produits.vars.prototype.page) }}</th>
+            <th>{{ form_label(form.produits.vars.prototype.description) }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for produit in form.produits %}
+              <tr>
+                <td>{% if form_errors(produit.reference) or (errors and (errors[loop.index0]|split(':')[0]) is sameas('erreur référence')) %}<span class="control-group error">{% endif %}{{ form_widget(produit.reference) }}{% if form_errors(produit.reference) %}</span>{% endif %}</td>
+                <td>{% if form_errors(produit.designation) %}<span class="control-group error">{% endif %}{{ form_widget(produit.designation) }}{% if form_errors(produit.designation) %}</span>{% endif %}</td>
+                <td>{% if form_errors(produit.marque) %}<span class="control-group error">{% endif %}{{ form_widget(produit.marque) }}{% if form_errors(produit.marque) %}</span>{% endif %}</td>
+                <td>{% if form_errors(produit.prix) %}<span class="control-group error">{% endif %}{{ form_widget(produit.prix) }}{% if form_errors(produit.prix) %}</span>{% endif %}</td>
+                <td>{% if form_errors(produit.tva) %}<span class="control-group error">{% endif %}{{ form_widget(produit.tva) }}{% if form_errors(produit.tva) %}</span>{% endif %}</td>
+                <td>{% if form_errors(produit.page) or (errors and (errors[loop.index0]|split(':')[0]|slice(35,4)) is sameas('page')) %}<span class="control-group error">{% endif %}{{ form_widget(produit.page) }}{% if form_errors(produit.page) %}</span>{% endif %}</td>
+                <td>{% if form_errors(produit.description) %}<span class="control-group error">{% endif %}{{ form_widget(produit.description) }}{% if form_errors(produit.description) %}</span>{% endif %}</td>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </fieldset>
+    <fieldset>
+      <legend>Ou par fichier CSV:</legend>
+      {% for error in errorsCsv %}
+        <span class="text-error">{{ error|split(':')[1] }}</span><br />
+      {% endfor %}
+      <div class="control-group{% if errorsCsv %} error{% endif %}">
+        {{ form_label(form.csv) }}
+        <div class="controls">
+          {{ form_widget(form.csv) }}
+        </div>
+      </div>
+    </fieldset>
+    <button type="submit" class="btn btn-hyperbrico">{% block submit %}{% endblock %}</button>
+    {{ form_row(form._token )}}
+    </form>
+</div>
+ 

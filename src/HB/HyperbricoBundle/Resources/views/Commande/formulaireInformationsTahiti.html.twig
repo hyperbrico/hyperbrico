@@ -1,0 +1,68 @@
+{{ form_start(form) }}
+{% if form_errors(form) %}
+<div class="control-group error">
+  <span class="help-inline">{{ form_errors(form)|nl2br }}</span>
+</div>
+{% endif %}
+
+<div class="control-group{% if form_errors(form.nom) %} error{% endif %}">
+  {{ form_label(form.nom) }}
+  <div class="controls">
+    {{ form_widget(form.nom) }}
+    {% if form_errors(form.nom) %}<span class="help-inline">{{ form_errors(form.nom) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.prenom) %} error{% endif %}">
+  {{ form_label(form.prenom) }}
+  <div class="controls">
+    {{ form_widget(form.prenom) }}
+    {% if form_errors(form.prenom) %}<span class="help-inline">{{ form_errors(form.prenom) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.numeroMaison) %} error{% endif %}">
+  {{ form_label(form.numeroMaison) }}
+  <div class="controls">
+    {{ form_widget(form.numeroMaison) }}
+    {% if form_errors(form.numeroMaison) %}<span class="help-inline">{{ form_errors(form.numeroMaison) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.numeroVini) %} error{% endif %}">
+  {{ form_label(form.numeroVini) }}
+  <div class="controls">
+    {{ form_widget(form.numeroVini) }}
+    {% if form_errors(form.numeroVini) %}<span class="help-inline">{{ form_errors(form.numeroVini) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.mail) %} error{% endif %}">
+  {{ form_label(form.mail) }}
+  <div class="controls">
+    {{ form_widget(form.mail) }}
+    {% if form_errors(form.mail) %}<span class="help-inline">{{ form_errors(form.mail) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.lieuHabitation) %} error{% endif %}">
+  {{ form_label(form.lieuHabitation) }}
+  <div class="controls">
+    {{ form_widget(form.lieuHabitation) }}
+    {% if form_errors(form.lieuHabitation) %}<span class="help-inline">{{ form_errors(form.lieuHabitation) }}</span>{% endif %}
+  </div>
+</div>
+
+{% block iles %}
+{% endblock %}
+
+<div class="control-group{% if form_errors(form.informationComplementaire) %} error{% endif %}">
+  {{ form_label(form.informationComplementaire) }}
+  <div class="controls">
+    {{ form_widget(form.informationComplementaire) }}
+    {% if form_errors(form.informationComplementaire) %}<span class="help-inline">{{ form_errors(form.informationComplementaire) }}</span>{% endif %}<br /><br />
+    <button type="submit" class="btn btn-hyperbrico">Valider</button>
+  </div>
+</div>
+
+{{ form_end(form) }}

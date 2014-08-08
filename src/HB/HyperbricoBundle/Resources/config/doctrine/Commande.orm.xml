@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="HB\HyperbricoBundle\Entity\CommandeRepository" table="sf_commande" name="HB\HyperbricoBundle\Entity\Commande">
+    <id name="id" type="integer" column="id">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="nom" type="string" column="nom" length="255" nullable="false"/>
+    <field name="prenom" type="string" column="prenom" length="255" nullable="false"/>
+    <field name="numeroMaison" type="string" column="numero_maison" length="255" nullable="false"/>
+    <field name="numeroVini" type="string" column="numero_vini" length="255" nullable="false"/>
+    <field name="lieuHabitation" type="text" column="lieu_habitation" nullable="false"/>
+    <field name="ile" type="string" column="ile" length="255" nullable="false"/>
+    <field name="nomBateau" type="string" column="nom_bateau" length="255" nullable="true"/>
+    <field name="dateDepartBateau" type="date" column="date_depart_bateau" nullable="true"/>
+    <field name="dateDemande" type="date" column="date_demande" nullable="false"/>
+    <field name="token" type="string" length="255" column="token" nullable="false"/>
+    <field name="nombreArticle" type="integer" column="nombre_article" nullable="false"/>
+    <field name="numeroCommande" type="string" length="255" column="numero_commande" nullable="false"/>
+    <field name="statut" type="string" length="255" column="statut" nullable="false"/>
+    <field name="mail" type="string" length="255" column="mail" nullable="false"/>
+    <field name="fretADestination" type="string" length="255" column="fret_a_destination" nullable="true"/>
+    <field name="informationComplementaire" type="text" column="information_complementaire" nullable="true"/>
+    <one-to-many field="lignesDeCommande" target-entity="HB\HyperbricoBundle\Entity\LigneDeCommande" mapped-by="commande" nullable="false">
+        <cascade>
+            <cascade-remove/>
+        </cascade>
+        <order-by>
+            <order-by-field name="reference" direction="ASC" />
+        </order-by>
+    </one-to-many>
+  </entity>
+</doctrine-mapping>

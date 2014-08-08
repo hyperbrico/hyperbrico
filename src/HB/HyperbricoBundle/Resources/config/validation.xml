@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="HB\HyperbricoBundle\Entity\Adresse">
+        <property name="mail">
+            <constraint name="Email">
+                <option name="message">'{{ value }}' n'est pas un email valide.</option>
+                <option name="checkMX">true</option>
+            </constraint>
+            <constraint name="NotBlank" />
+        </property>
+    </class>
+    <class name="HB\HyperbricoBundle\Entity\LigneDeCommande">
+        <property name="quantite">
+            <constraint name="Range">
+                <option name="min">1</option>
+            </constraint>
+            <constraint name="Type">
+                <option name="type">numeric</option>
+                <option name="message">Le prix doit être un nombre.</option>
+            </constraint>
+        </property>
+    </class>
+    <class name="HB\HyperbricoBundle\Entity\News">
+        <property name="titre">
+            <constraint name="NotBlank" />
+        </property>
+        <property name="dateCreation">
+            <constraint name="DateTime" />
+        </property>
+        <property name="dateModification">
+            <constraint name="DateTime" />
+        </property>
+        <property name="datePubDebut">
+            <constraint name="DateTime" />
+        </property>
+        <property name="datePubFin">
+            <constraint name="DateTime" />
+        </property>
+        <property name="contenu">
+            <constraint name="NotBlank" />
+        </property>
+        <property name="auteur">
+            <constraint name="NotBlank" />
+        </property>
+        <constraint name="Callback">
+            <option name="methods">
+                <value>isDatesValid</value>
+            </option>
+        </constraint>
+    </class>
+    <class name="HB\HyperbricoBundle\Entity\Catalogue">
+        <constraint name="Callback">
+            <option name="methods">
+                <value>isFileValid</value>
+            </option>
+        </constraint>
+        <constraint name="Callback">
+            <option name="methods">
+                <value>isDatesValid</value>
+            </option>
+        </constraint>
+        <property name="titre">
+            <constraint name="NotBlank" />
+        </property>
+        <property name="dateCreation">
+            <constraint name="DateTime" />
+        </property>
+        <property name="dateModification">
+            <constraint name="DateTime" />
+        </property>
+        <property name="datePubDebut">
+            <constraint name="DateTime" />
+        </property>
+        <property name="datePubFin">
+            <constraint name="DateTime" />
+        </property>
+        <property name="dateDebut">
+            <constraint name="DateTime" />
+        </property>
+        <property name="dateFin">
+            <constraint name="DateTime" />
+        </property>
+        <property name="description">
+            <constraint name="NotBlank" />
+        </property>
+        <property name="auteur">
+            <constraint name="NotBlank" />
+        </property>
+        <property name="file">
+            <constraint name="File">
+                <option name="maxSize">20M</option>
+                <option name="mimeTypes">
+                    <value>application/pdf</value>
+                </option>
+                <option name="mimeTypesMessage">Choisissez un fichier PDF valide</option>
+            </constraint>
+        </property>
+    </class>
+    <class name="HB\HyperbricoBundle\Entity\Contact">
+        <property name="nom">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer un nom.</option>
+            </constraint>
+        </property>
+        <property name="mail">
+            <constraint name="Email">
+                <option name="message">'{{ value }}' n'est pas un email valide.</option>
+            </constraint>
+        </property>
+        <property name="telephone">
+            <constraint name="Regex">
+                <option name="pattern">/^\d{2}([-. ]?\d{2}){2}([-. ]?\d{2})?$/</option>
+                <option name="message">Votre numéro de téléphone doit avoir soit 6 chiffres, soit 8 chiffres.</option>
+            </constraint>
+        </property>
+        <property name="sujet">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer un sujet.</option>
+            </constraint>
+        </property>
+        <property name="message">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer un message.</option>
+            </constraint>
+        </property>
+    </class>
+    <class name="HB\HyperbricoBundle\Entity\Commande">
+        <constraint name="Callback">
+            <option name="methods">
+                <value>isRestCorrect</value>
+            </option>
+        </constraint>
+        <property name="mail">
+            <constraint name="Email">
+                <option name="message">'{{ value }}' n'est pas un email valide.</option>
+                <option name="checkMX">true</option>
+            </constraint>
+        </property>
+        <property name="nom">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer un nom.</option>
+            </constraint>
+        </property>
+        <property name="prenom">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer un prénom.</option>
+            </constraint>
+        </property>
+        <property name="numeroMaison">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer un numéro de téléphone.</option>
+            </constraint>
+            <constraint name="Regex">
+                <option name="pattern">/^\d{2}([-. ]?\d{2}){2}([-. ]?\d{2})?$/</option>
+                <option name="message">Votre numéro de téléphone doit avoir soit 6 chiffres, soit 8 chiffres.</option>
+            </constraint>
+        </property>
+        <property name="numeroVini">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer un numéro de téléphone.</option>
+            </constraint>
+            <constraint name="Regex">
+                <option name="pattern">/^\d{2}([-. ]?\d{2}){2}([-. ]?\d{2})?$/</option>
+                <option name="message">Votre numéro de téléphone doit avoir soit 6 chiffres, soit 8 chiffres.</option>
+            </constraint>
+        </property>
+        <property name="lieuHabitation">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer une adresse.</option>
+            </constraint>
+        </property>
+        <property name="ile">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer une île.</option>
+            </constraint>
+        </property>
+    </class>
+    <class name="HB\HyperbricoBundle\Entity\Newsletter">
+        <property name="objet">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer un titre.</option>
+            </constraint>
+        </property>
+        <property name="contenu">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer le contenu de la newsletter.</option>
+            </constraint>
+        </property>
+    </class>
+    <class name="HB\HyperbricoBundle\Entity\Produit">
+        <constraint name="Callback">
+            <option name="methods">
+                <value>isPageCorrect</value>
+            </option>
+        </constraint>
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">
+                <value>catalogue</value>
+                <value>reference</value>
+            </option>
+            <option name="message">Deux produits ne peuvent pas avoir la même référence.</option>
+        </constraint>
+        <property name="prix">
+            <constraint name="Type">
+                <option name="type">numeric</option>
+                <option name="message">Le prix doit être un nombre.</option>
+            </constraint>
+            <constraint name="NotBlank">
+                <option name="message">Le prix est obligatoire</option>
+            </constraint>
+        </property>
+        <property name="page">
+            <constraint name="Type">
+                <option name="type">numeric</option>
+                <option name="message">La page doit être un nombre.</option>
+            </constraint>
+            <constraint name="Range">
+                <option name="min">1</option>
+                <option name="minMessage">La page doit être strictement positive.</option>
+                <option name="invalidMessage">La page doit être un nombre.</option>
+            </constraint>
+            <constraint name="NotBlank">
+                <option name="message">Le numéro de la page est obligatoire</option>
+            </constraint>
+        </property>
+    </class>
+    <class name="HB\HyperbricoBundle\Entity\Produits">
+        <property name="produits">
+            <constraint name="Valid" />
+        </property>
+    </class>
+    <class name="HB\HyperbricoBundle\Entity\Recommande">
+        <property name="nom">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer un nom.</option>
+            </constraint>
+        </property>
+        <property name="mail">
+            <constraint name="Email">
+                <option name="message">'{{ value }}' n'est pas un email valide.</option>
+            </constraint>
+        </property>
+        <property name="mailAmi">
+            <constraint name="Email">
+                <option name="message">'{{ value }}' n'est pas un email valide.</option>
+            </constraint>
+        </property>
+        <property name="sujet">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer un sujet.</option>
+            </constraint>
+        </property>
+        <property name="message">
+            <constraint name="NotBlank">
+                <option name="message">Veuillez entrer un message.</option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

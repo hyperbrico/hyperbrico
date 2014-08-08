@@ -1,0 +1,18 @@
+{% extends "HBHyperbricoBundle::layoutCommandeAdmin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Gérer une demande 
+{% endblock %}
+
+{% block soustitre %}
+  <h1>Gérer la demande n° {{ commande.numeroCommande }}</h1>
+{% endblock %}
+ 
+{% block active %}
+  {{ parent() }} <li class="active">Gérer la demande n° {{ commande.numeroCommande }}</li>
+{% endblock %}
+
+{% block contenu %}
+  <h2>Information sur la demande</h2>
+  {% include "HBHyperbricoBundle:Commande:formulaireGerer.html.twig" %}
+{% endblock %}

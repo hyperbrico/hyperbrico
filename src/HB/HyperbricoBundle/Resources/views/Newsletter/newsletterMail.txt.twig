@@ -1,0 +1,3 @@
+{{ contenu | raw }}
+
+Si vous ne souhaitez plus recevoir les newsletters de «HYPER BRICO», vous pouvez vous désinscrire avec ce lien: http://{{app.request.server.get('HTTP_HOST')}}{{ path('hb_hyperbrico_desinscriptionNewsletter', {'mail': adresse.mail, 'token': adresse.token}) }}

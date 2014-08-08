@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html{% block xmlfb %}{% endblock %}>
+<head>
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  {% block IE %}{% endblock %}
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>{% block titre %}Hyperbrico{% endblock %}</title>
+  <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+  {% stylesheets filter='cssrewrite, ?yui_css' output='css/compiled/main.css'
+    'css/stdtheme.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+  {% endstylesheets %}
+  {% block stylesheets %}
+  {% endblock %}
+  <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon" />
+</head>
+
+<body>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-43367836-1', 'hyperbrico.pf');
+    ga('send', 'pageview');
+
+  </script>
+  <div id="header">
+  <div class="container">
+    <header class="clearfix">
+      <div class="pull-left">
+        <a href="{{ path('hb_hyperbrico_accueil') }}" title="Aller à l'accueil"><img src="{{ asset('img/logo.png') }}" alt="logo Hyperbrico" /></a>
+      </div>
+
+      <div class="pull-right" style="margin-top:10px;">
+        <ul id="headerRight">
+          {% if app.user and is_granted("ROLE_ADMIN") %}
+            <li class="dropdown separator-right">
+              <a class="dropdown-toggle{% block adminActive %}{% endblock %}" href="{{ path('hb_hyperbrico_admin') }}"><i class="icon-user"></i> Admin <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ path('hb_hyperbrico_adminNews') }}">Gestion des news</a></li>
+                <li><a href="{{ path('hb_hyperbrico_adminCatalogue') }}">Gestion des catalogues</a></li>
+                <li><a href="{{ path('hb_hyperbrico_adminPromotion') }}">Gestion des promotions</a></li>
+                <li><a href="{{ path('hb_hyperbrico_adminNewsletter') }}">Gestion des newsletters</a></li>
+                <li><a href="{{ path('hb_hyperbrico_adminCommande') }}">Gestion des demandes</a></li>
+                <li><a href="{{ path('hb_hyperbrico_adminContact') }}">Gestion des contacts</a></li>
+              </ul>
+            </li>
+          {% endif %}
+          <li class="separator-right"><a href="{{ path('hb_hyperbrico_contact') }}"><i class="icon-envelope"></i> Nous contacter</a></li>
+          <li></li>
+          <li class="dropdown">
+              <a class="dropdown-toggle" href="{{ path('hb_hyperbrico_panier') }}"><i class="icon-shopping-cart"></i> Panier {{ app.session.get('quantiteTotale') == 0 ? '(0)' : '(' ~ app.session.get('quantiteTotale') ~ ')' }} <span class="caret"></span></a>
+              <ul class="dropdown-menu pull-right">
+                {% set nbrArticle = 0 %}
+                {% for ligne in app.session.get('reference') %}
+                  {% if nbrArticle < 5 %}
+                    <li><a href="#">{{ app.session.get(ligne).produit.designation | slice(0, 39) }}{% if app.session.get(ligne).produit.designation | length > 40 %}...{% endif %}<br />Quantité: {{ app.session.get(ligne).quantite }}</a></li>
+                    {% set nbrArticle = nbrArticle + 1 %}
+                  {% endif %}
+                {% endfor %}
+                {% for ligne in app.session.get('produitPerso') %}
+                  {% if nbrArticle < 5 and ligne.designation != '????' %}
+                    <li><a href="#">{{ ligne.description | slice(0, 39) }}{% if ligne.description | length > 40 %}...{% endif %}<br />Quantité: {{ ligne.quantite }}</a></li>
+                    {% set nbrArticle = nbrArticle + 1 %}
+                  {% endif %}                  
+                {% endfor %}
+                {% if nbrArticle == 0 %}
+                  <li><a href="#">Votre panier est vide.</a></li>
+                {% endif %}
+                <li id="btn-panier"><a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_panier') }}">Voir le panier {{ app.session.get('quantiteTotale') ? '(' ~ app.session.get('quantiteTotale') ~ ' article' ~ (app.session.get('quantiteTotale') > 1 ? 's' : '') ~ ')' : '' }}</a>
+              </ul>
+          </li>
+        </ul>
+      </div>
+      
+        {% if app.user and is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div class="pull-right" style="margin-top:20px;">
+          Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+        </div>
+        {% endif %}
+      
+    </header>
+
+    <nav class="clearfix">
+      <div id="topnavLeft">
+        <ul>
+          <li><a {% block newsActive %}{% endblock %} href="{{ path('hb_hyperbrico_news') }}">NEWS</a></li>
+          <li><a {% block cataloguesActive %}{% endblock %} href="{{ path('hb_hyperbrico_catalogues') }}">CATALOGUES</a></li>
+          <li><a {% block promotionsActive %}{% endblock %} href="{{ path('hb_hyperbrico_promotions') }}">PROMOTIONS</a></li>
+          {#<li><a {% block conseilsActive %}{% endblock %} href="{{ path('hb_hyperbrico_conseils') }}">CONSEILS</a></li>#}
+          <li><a {% block magasinsActive %}{% endblock %} href="{{ path('hb_hyperbrico_magasins') }}">MAGASINS</a></li>
+          <li><a {% block servicesActive %}{% endblock %} href="{{ path('hb_hyperbrico_services') }}">SERVICES</a></li>
+        </ul>
+      </div>
+      <div id="topnavRight">
+        <ul>
+          <li>
+            <a href="{{ path('hb_hyperbrico_quiSommesNous') }}">QUI SOMMES-NOUS</a>
+          </li>
+        </ul>
+        
+      </div>
+    </nav>
+  </div>
+</div>
+  <div class="container">
+    <div id="main">
+
+      <section id="breadcrumb">
+        <ul class="breadcrumb">
+          {% block chemin %}
+            <li><a href="{{ path('hb_hyperbrico_accueil') }}">HYPER BRICO</a> <span class="divider">/</span></li>
+          {% endblock %}
+        </ul>
+      </section>
+
+      {% if app.session.flashbag.peekAll() %}
+        <section id="messageFlash">
+          {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+              <div class="alert alert-{{ type }}">
+                {{ message | raw }}
+              </div>
+            {% endfor %}
+          {% endfor %}
+        </section>
+      {% endif %}
+
+      <section id="contenu">
+        {% block soustitre %}
+        {% endblock %}
+        {% block contenu %}
+        {% endblock %}
+      </section>
+
+    </div> 
+
+    {#<div id="admintools">
+      <h3>Outils de la page</h3>
+      <div id="tools">
+        <ul>
+          <li><a href="/doku.php?id=accueil&amp;do=edit&amp;rev=0" class="action source" accesskey="v" rel="nofollow" title="Afficher le texte source [V]"><span>Afficher le texte source</span></a></li>
+          <li><a href="/doku.php?id=accueil&amp;do=revisions" class="action revs" accesskey="o" rel="nofollow" title="Anciennes révisions [O]"><span>Anciennes révisions</span></a></li>
+          <li><a href="/doku.php?id=accueil&amp;do=backlink" class="action backlink" rel="nofollow" title="Liens vers cette page"><span>Liens vers cette page</span></a></li><li><a href="#dokuwiki__top" class="action top" accesskey="t" rel="nofollow" title="Haut de page [T]"><span>Haut de page</span></a></li>
+        </ul>
+      </div>
+    </div>#}
+
+
+    {% block footer %}{% endblock %}
+    <footer>
+      <p class="muted">HYPER BRICO PAPEETE, Avenue du Prince Hinoi, Tél 54 00 77, Fax 41 94 59, Ouvert de 7h à 18h du lundi au samedi<br />HYPER BRICO PUNAAUIA, P.K. 14,33 km, Tél 50 50 60, Fax 45 45 87, Ouvert de 7h à 17h30 du lundi au samedi</p>
+      <div class="row-fluid">
+        <div class="span5">
+          <div class="offset2 span5">
+            Jingle publicitaire :
+          </div>
+          <div class="span5">
+            <object type="application/x-shockwave-flash" data="{{ asset('sound/dewplayer-mini.swf') }}" width="160" height="20" id="dewplayer" name="dewplayer">
+              <param name="movie" value="{{ asset('sound/dewplayer-mini.swf') }}" />
+              <param name="flashvars" value="mp3={{ asset('sound/jingle.mp3') }}&amp;volume=50" />
+              <param name="wmode" value="transparent" />
+            </object>
+          </div>
+        </div>
+        <div class="span7">
+          {{ render(controller("HBHyperbricoBundle:Newsletter:inscription")) }}
+        </div>
+      </div>
+      Hyperbrico - ©2013 - Tous droits réservés
+    </footer>
+    {% block footerferme %}{% endblock %}
+  </div>
+
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  {% javascripts  filter='?yui_js' output='js/compiled/main.js'
+    'js/bootstrap.js'
+    'js/dropdown.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+  {% block javascripts %}
+  {% endblock %}
+  {% block facebook %}
+  {% endblock %}
+
+</body>
+</html>

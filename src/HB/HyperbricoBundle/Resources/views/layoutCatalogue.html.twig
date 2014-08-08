@@ -1,0 +1,19 @@
+{% extends "::layout.html.twig" %}
+
+{% block chemin %}
+
+ {{ parent() }} {% block active %}<li><a href="{{ path('hb_hyperbrico_' ~ type ~ 's') }}">{{ type|capitalize }}s</a> <span class="divider">/</span></li>{% endblock %}
+
+{% endblock %}
+
+{% block cataloguesActive %}
+	{% if type == 'catalogue' %}
+		class="active"
+	{% endif %}
+{% endblock %}
+
+{% block promotionsActive %}
+	{% if type == 'promotion' %}
+		class="active"
+	{% endif %}
+{% endblock %}

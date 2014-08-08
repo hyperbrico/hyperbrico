@@ -1,0 +1,8 @@
+HB\UserBundle\Entity\User:
+    type:  entity
+    table: sf_user
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO

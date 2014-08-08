@@ -1,0 +1,100 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: %locale% }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: false }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    session:         ~
+    fragments:       ~
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    form:
+        resources:
+            - 'HBHyperbricoBundle:Form:form_errors.html.twig'
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:        ['HBHyperbricoBundle']
+    java: C:\Program Files\Java\jre7\bin\java.exe
+    filters:
+        cssrewrite: ~
+        yui_css:
+            jar: %kernel.root_dir%/Resources/java/yuicompressor.jar
+        yui_js:
+            jar: %kernel.root_dir%/Resources/java/yuicompressor.jar
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver, add the path in parameters.yml
+        # e.g. database_path: %kernel.root_dir%/data/data.db3
+        # path:     %database_path%
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    default_mailer: default
+    mailers:
+        default:
+            transport: %mailer_transport%
+            host:      %mailer_host%
+            username:  %mailer_user%
+            password:  %mailer_password%
+            spool:
+                type:  file
+                path:  "%kernel.root_dir%/spool"
+            port:      %mailer_port%
+            encryption: %mailer_encryption%
+        immediate:
+            transport: %mailer_transport%
+            host:      %mailer_host%
+            username:  %mailer_user%
+            password:  %mailer_password%
+            spool:     { type: memory }
+            port:      %mailer_port%
+            encryption: %mailer_encryption%
+
+# FOSUser configuration
+fos_user:
+    db_driver:     orm
+    firewall_name: main
+    user_class:    HB\UserBundle\Entity\User
+
+# Stof\DoctrineExtensionBundle configuration
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
+
+genemu_form:
+    recaptcha:
+        public_key: 6LedLeUSAAAAAJzQe7hIC6c1NvtDo5Bz-7qRbRV_
+        private_key: 6LedLeUSAAAAAJ7YSt6cfJSu2gvjtEWa1ZsVEBKu

@@ -1,0 +1,306 @@
+{% extends "HBHyperbricoBundle::layoutMagasin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Magasins 
+{% endblock %}
+
+{% block active %}
+  <li class="active">Magasins</li>
+{% endblock %}
+
+{% block stylesheets %}
+  <link type="text/css" rel="stylesheet" href="{{ asset('css/viewer.css') }}" />
+{% endblock %}
+
+{% block contenu %}
+  <div class="row-fluid">
+    <div class="span6">
+      <h2>HYPER BRICO PAPEETE</h2>
+      <div id="container1" class="blueimp-gallery">
+        <div class="slides"></div>
+        <a class="close">×</a>
+      </div>
+      <div id="link1">
+        <a href="{{ asset('img/devanturePapeete.jpg') }}">
+          <img src="{{ asset('img/devanturePapeete.jpg') }}" alt="devanture hyperbrico papeete" class="img-polaroid" />
+        </a>
+      </div>
+      <address>
+      <br />
+      Avenue du Prince Hinoi<br />
+      Ouvert de 7h à 18h du lundi au samedi<br />
+      Ouvert de 8h30 à 12h30 les jours fériés<br />
+      Téléphone: 54 00 77<br />
+      Fax: 41 94 59<br />
+      Surface: 4350m²<br />
+      Parking: 120 places
+      </address>
+      <br /><br />
+      <div id="container2" class="blueimp-gallery">
+        <div class="slides"></div>
+        <a class="close">×</a>
+      </div>
+      <div id="link2">
+        <a href="{{ asset('img/plan-acces-hyperbrico-papeete.png') }}">
+            <img src="{{ asset('img/plan-acces-hyperbrico-papeete.png') }}" alt="plan d'accès au magasin HYPER BRICO PAPEETE" class="img-polaroid">
+        </a>
+      </div>
+    </div>
+    <div class="span6">
+      <h2>HYPER BRICO PUNAAUIA</h2>      
+      <div id="container3" class="blueimp-gallery">
+        <div class="slides"></div>
+        <a class="close">×</a>
+      </div>
+      <div id="link3">
+        <a href="{{ asset('img/devanturePunaauia.jpg') }}">
+          <img src="{{ asset('img/devanturePunaauia.jpg') }}" alt="devanture hyperbrico punaauia" class="img-polaroid" />
+        </a>
+      </div>
+      <address>
+      <br />
+      P.K. 14,33 km à 5 minutes de la mairie.<br />
+      Accès facile par le Rond Point de la Zone industrielle de la Punaruu.<br />
+      Ouvert de 7h à 17h30 du lundi au samedi<br />
+      Ouvert de 8h30 à 12h30 les jours fériés<br />
+      Téléphone: 50 50 60<br />
+      Fax: 45 45 87<br />
+      Surface: 2000m²<br />
+      Parking: 26 places extérieures et 53 places couvertes
+      </address>
+      <div id="container4" class="blueimp-gallery">
+        <div class="slides"></div>
+        <a class="close">×</a>
+      </div>
+      <div id="link4">
+        <a href="{{ asset('img/plan-acces-hyperbrico-punaauia.png') }}">
+            <img src="{{ asset('img/plan-acces-hyperbrico-punaauia.png') }}" alt="plan d'accès au magasin HYPER BRICO PAPEETE" class="img-polaroid">
+        </a>
+      </div>
+    </div>
+  </div>
+	<h2>Les rayons</h2>
+  <h3>HYPER BRICO Papeete</h3>
+  <div id="images0">
+    <a href="{{ asset('img/rayons/') }}ppt_01.jpg" title="Papeete 1"></a>
+    <a href="{{ asset('img/rayons/') }}ppt_02.jpg" title="Papeete 2"></a>
+    <a href="{{ asset('img/rayons/') }}ppt_03.jpg" title="Papeete 3"></a>
+    <a href="{{ asset('img/rayons/') }}ppt_04.jpg" title="Papeete 4"></a>
+    <a href="{{ asset('img/rayons/') }}ppt_05.jpg" title="Papeete 5"></a>
+    <a href="{{ asset('img/rayons/') }}ppt_06.jpg" title="Papeete 6"></a>
+    <a href="{{ asset('img/rayons/') }}ppt_07.jpg" title="Papeete 7"></a>
+    <a href="{{ asset('img/rayons/') }}ppt_08.jpg" title="Papeete 8"></a>
+    <a href="{{ asset('img/rayons/') }}ppt_09.jpg" title="Papeete 9"></a>
+    <a href="{{ asset('img/rayons/') }}ppt_10.jpg" title="Papeete 10"></a>
+    <a href="{{ asset('img/rayons/') }}ppt_11.jpg" title="Papeete 11"></a>
+  </div>
+  <div id="viewer0" class="blueimp-gallery blueimp-gallery-carousels blueimp-gallery-controls">
+    <div class="slides"></div>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <ol class="indicator"></ol>
+  </div>
+  <h3>HYPER BRICO Punaauia</h3>
+	{#<h4>Allée centrale</h4>#}
+	<div id="images1">
+    <a href="{{ asset('img/rayons/') }}Allée%20centrale%20001.jpg" title="Allée centrale 1"></a>
+    <a href="{{ asset('img/rayons/') }}Allée%20centrale%20002.jpg" title="Allée centrale 2"></a>
+    <a href="{{ asset('img/rayons/') }}Allée%20centrale%20003.jpg" title="Allée centrale 3"></a>
+    <a href="{{ asset('img/rayons/') }}Allée%20centrale%20004.jpg" title="Allée centrale 4"></a>
+    <a href="{{ asset('img/rayons/') }}Allée%20centrale%20005.jpg" title="Allée centrale 5"></a>
+    <a href="{{ asset('img/rayons/') }}Allée%20centrale%20006.jpg" title="Allée centrale 6"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20outillage%20001.jpg" title="Rayon outillage 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20outillage%20002.jpg" title="Rayon outillage 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20outillage%20003.jpg" title="Rayon outillage 3"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20outillage%20004.jpg" title="Rayon outillage 4"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20électricité%20001.jpg" title="Rayon électricité 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20électricité%20002.jpg" title="Rayon électricité 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20001.jpg" title="Rayon déco 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20002.jpg" title="Rayon déco 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20003.jpg" title="Rayon déco 3"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20004.jpg" title="Rayon déco 4"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20005.jpg" title="Rayon déco 5"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20006.jpg" title="Rayon déco 6"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20007.jpg" title="Rayon déco 7"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20008.jpg" title="Rayon déco 8"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sol%20001.jpg" title="Rayon sol 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sol%20002.jpg" title="Rayon sol 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20001.jpg" title="Rayon sanitaire 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20002.jpg" title="Rayon sanitaire 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20003.jpg" title="Rayon sanitaire 3"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20004.jpg" title="Rayon sanitaire 4"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20005.jpg" title="Rayon sanitaire 5"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20006.jpg" title="Rayon sanitaire 6"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20007.jpg" title="Rayon sanitaire 7"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20008.jpg" title="Rayon sanitaire 8"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20009.jpg" title="Rayon sanitaire 9"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20010.jpg" title="Rayon sanitaire 10"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20011.jpg" title="Rayon sanitaire 11"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20001.jpg" title="Rayon bois 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20002.jpg" title="Rayon bois 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20003.jpg" title="Rayon bois 3"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20004.jpg" title="Rayon bois 4"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20005.jpg" title="Rayon bois 5"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20006.jpg" title="Rayon bois 6"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20007.jpg" title="Rayon bois 7"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bati%20001.jpg" title="Rayon bati 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bati%20002.jpg" title="Rayon bati 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20jardin%20001.jpg" title="Rayon jardin 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20jardin%20002.jpg" title="Rayon jardin 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20jardin%20003.jpg" title="Rayon jardin 3"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20jardin%20004.jpg" title="Rayon jardin 4"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20quincaillerie%20001.jpg" title="Rayon quincaillerie 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20quincaillerie%20002.jpg" title="Rayon quincaillerie 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20quincaillerie%20003.jpg" title="Rayon quincaillerie 3"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20quincaillerie%20004.jpg" title="Rayon quincaillerie 4"></a>
+  </div>
+  <div id="viewer1" class="blueimp-gallery blueimp-gallery-carousels blueimp-gallery-controls">
+    <div class="slides"></div>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <ol class="indicator"></ol>
+  </div>
+	{#<h4>Outillage</h4>
+	<p>Le petit outillage manuel, les machines électroportatives, le gros outillage avec des compresseurs, des groupes électrogènes, des nettoyeurs haute pression, des aspirateurs, ….des accessoires pour électroportatifs, du consommables tels que le papier de verre, des mèches, des disques à tronçonner, ....des produits automobiles, des outils de maçonnerie, des caisses à outils,...</p>
+	<div id="images2">
+    <a href="{{ asset('img/rayons/') }}Rayon%20outillage%20001.jpg" title="Rayon outillage 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20outillage%20002.jpg" title="Rayon outillage 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20outillage%20003.jpg" title="Rayon outillage 3"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20outillage%20004.jpg" title="Rayon outillage 4"></a>
+  </div>
+  <div id="viewer2" class="blueimp-gallery blueimp-gallery-carousels blueimp-gallery-controls">
+    <div class="slides"></div>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <ol class="indicator"></ol>
+  </div>
+  <h4>Electricité</h4>
+	<p>L'appareillage électrique tel que les prises, interrupteurs, tableau de disjoncteurs, disjoncteurs, luminaires intérieurs-extérieur, les câbles, la téléphonie, la hifi-vidéo, les alarmes…</p>
+	<div id="images3">
+    <a href="{{ asset('img/rayons/') }}Rayon%20électricité%20001.jpg" title="Rayon électricité 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20électricité%20002.jpg" title="Rayon électricité 2"></a>
+  </div>
+  <div id="viewer3" class="blueimp-gallery blueimp-gallery-carousels blueimp-gallery-controls">
+    <div class="slides"></div>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <ol class="indicator"></ol>
+  </div>
+  <h4>Décoration</h4>
+	<p>La peinture, les enduits, les outils de peinture, les colles, les tringles à rideaux, les stores, les rideaux, les coussins, les cadres, les produits ménager.</p>
+	<div id="images4">
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20001.jpg" title="Rayon déco 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20002.jpg" title="Rayon déco 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20003.jpg" title="Rayon déco 3"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20004.jpg" title="Rayon déco 4"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20005.jpg" title="Rayon déco 5"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20006.jpg" title="Rayon déco 6"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20007.jpg" title="Rayon déco 7"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20déco%20008.jpg" title="Rayon déco 8"></a>
+  </div>
+  <div id="viewer4" class="blueimp-gallery blueimp-gallery-carousels blueimp-gallery-controls">
+    <div class="slides"></div>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <ol class="indicator"></ol>
+  </div>
+  <h4>Sol</h4>
+	<p>Le carrelage, les parquets, les revêtements PVC, les moquettes, les colles, l'outillage de carreleur.</p>
+	<div id="images5">
+    <a href="{{ asset('img/rayons/') }}Rayon%20sol%20001.jpg" title="Rayon sol 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sol%20002.jpg" title="Rayon sol 2"></a>
+  </div>
+  <div id="viewer5" class="blueimp-gallery blueimp-gallery-carousels blueimp-gallery-controls">
+    <div class="slides"></div>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <ol class="indicator"></ol>
+  </div>
+  <h4>Sanitaire</h4>
+	<p>Les WC, les lavabos, les cabines de douches, les baignoires. Le technique avec la plomberie, le PVC, le polyéthylène. Les meubles de salle de bains, les miroirs, les accessoires de salle de bains.</p>
+	<div id="images6">
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20001.jpg" title="Rayon sanitaire 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20002.jpg" title="Rayon sanitaire 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20003.jpg" title="Rayon sanitaire 3"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20004.jpg" title="Rayon sanitaire 4"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20005.jpg" title="Rayon sanitaire 5"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20006.jpg" title="Rayon sanitaire 6"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20007.jpg" title="Rayon sanitaire 7"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20008.jpg" title="Rayon sanitaire 8"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20009.jpg" title="Rayon sanitaire 9"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20010.jpg" title="Rayon sanitaire 10"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20sanitaire%20011.jpg" title="Rayon sanitaire 11"></a>
+  </div>
+  <div id="viewer6" class="blueimp-gallery blueimp-gallery-carousels blueimp-gallery-controls">
+    <div class="slides"></div>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <ol class="indicator"></ol>
+  </div>
+  <h4>Bois</h4>
+	<p>Les portes, les aménagements de placard, la découpe de panneaux, les étagères, les tasseaux.</p>
+	<div id="images7">
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20001.jpg" title="Rayon bois 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20002.jpg" title="Rayon bois 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20003.jpg" title="Rayon bois 3"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20004.jpg" title="Rayon bois 4"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20005.jpg" title="Rayon bois 5"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20006.jpg" title="Rayon bois 6"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bois%20007.jpg" title="Rayon bois 7"></a>
+  </div>
+  <div id="viewer7" class="blueimp-gallery blueimp-gallery-carousels blueimp-gallery-controls">
+    <div class="slides"></div>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <ol class="indicator"></ol>
+  </div>
+  <h4>Bati</h4>
+	<p>Les dalles gravillonnées, la pierre de Bavière, les échelles, le ciment, les produits d'étanchéité.</p>
+	<div id="images8">
+    <a href="{{ asset('img/rayons/') }}Rayon%20bati%20001.jpg" title="Rayon bati 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20bati%20002.jpg" title="Rayon bati 2"></a>
+  </div>
+  <div id="viewer8" class="blueimp-gallery blueimp-gallery-carousels blueimp-gallery-controls">
+    <div class="slides"></div>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <ol class="indicator"></ol>
+  </div>
+  <h4>Jardin</h4>
+	<p>La motoculture, le grillage, les brises vues, les canisses, l'arrosage, les produits piscines, les engrais, l'outillage de jardin.</p>
+	<div id="images9">
+    <a href="{{ asset('img/rayons/') }}Rayon%20jardin%20001.jpg" title="Rayon jardin 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20jardin%20002.jpg" title="Rayon jardin 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20jardin%20003.jpg" title="Rayon jardin 3"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20jardin%20004.jpg" title="Rayon jardin 4"></a>
+  </div>
+  <div id="viewer9" class="blueimp-gallery blueimp-gallery-carousels blueimp-gallery-controls">
+    <div class="slides"></div>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <ol class="indicator"></ol>
+  </div>
+  <h4>Quincaillerie</h4>
+	<p>La visserie, la boulonnerie, les chevilles, les roulettes, la quincaillerie d'ameublement, les bacs de rangement.</p>
+	<div id="images10">
+    <a href="{{ asset('img/rayons/') }}Rayon%20quincaillerie%20001.jpg" title="Rayon quincaillerie 1"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20quincaillerie%20002.jpg" title="Rayon quincaillerie 2"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20quincaillerie%20003.jpg" title="Rayon quincaillerie 3"></a>
+    <a href="{{ asset('img/rayons/') }}Rayon%20quincaillerie%20004.jpg" title="Rayon quincaillerie 4"></a>
+  </div>
+  <div id="viewer10" class="blueimp-gallery blueimp-gallery-carousels blueimp-gallery-controls">
+    <div class="slides"></div>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <ol class="indicator"></ol>
+  </div>#}
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript" src="{{ asset('js/viewer.js') }}"></script>
+  {% javascripts  filter='?yui_js' output='js/compiled/magasins.js'
+    'js/toggleviewers.js'
+    'js/magasinsViewer.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}

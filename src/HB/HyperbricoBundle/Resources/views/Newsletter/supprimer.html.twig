@@ -1,0 +1,24 @@
+{% extends "HBHyperbricoBundle::layoutNewsletterAdmin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Supprimer "{{ adresse.mail }}" 
+{% endblock %}
+
+{% block chemin %}
+
+ {{ parent() }} <li class="active">Supprimer une adresse</li>
+
+{% endblock %}
+
+{% block contenu %}
+	<h2>Supprimer une adresse mail</h2>
+ 
+	<p>
+		Etes-vous certain de vouloir supprimer l'adresse mail "{{ adresse.mail }}" ?
+	</p>
+
+	<form action="{{ path('hb_hyperbrico_supprimerNewsletter', {'id': adresse.id}) }}" method="post">
+	<button type="submit" class="btn btn-hyperbrico">Supprimer</button>
+	{{ form_rest(form) }}
+	</form>
+{% endblock %}

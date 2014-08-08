@@ -1,0 +1,13 @@
+services:
+    twig.extension.intl:
+           class: Twig_Extensions_Extension_Intl
+           tags:
+               - { name: twig.extension }
+    twig.extension.debug:
+        class: Twig_Extensions_Extension_Debug
+        tags: [ { name: 'twig.extension' } ]
+
+    hb_sendNewsletter:
+        class: HB\HyperbricoBundle\SendNewsletter\HBSendNewsletter
+        arguments: [@swiftmailer.mailer.default, @swiftmailer.mailer.immediate, @doctrine.orm.entity_manager, @templating, @form.csrf_provider, %mailer_user%, %secret%, %mail_brico%]
+

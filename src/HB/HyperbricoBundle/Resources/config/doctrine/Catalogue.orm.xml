@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd" xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+  <entity name="HB\HyperbricoBundle\Entity\Catalogue" table="sf_catalogue" repository-class="HB\HyperbricoBundle\Entity\CatalogueRepository">
+    <lifecycle-callbacks>
+        <lifecycle-callback type="prePersist" method="prePersist"/>
+        <lifecycle-callback type="preUpdate" method="preUpdate"/>
+        <lifecycle-callback type="postPersist" method="upload"/>
+        <lifecycle-callback type="postUpdate" method="upload"/>
+        <lifecycle-callback type="preRemove" method="preRemoveUpload"/>
+        <lifecycle-callback type="postRemove" method="removeUpload"/>
+    </lifecycle-callbacks>
+    <id name="id" type="integer" column="id">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="slug" type="string" column="slug" length="255" nullable="false" unique="true">
+      <gedmo:slug fields="titre" />
+    </field>
+    <field name="dateCreation" type="datetime" column="date_creation" nullable="false"/>
+    <field name="dateModification" type="datetime" column="date_modification" nullable="false"/>
+    <field name="datePubDebut" type="datetime" column="date_pub_debut" nullable="false"/>
+    <field name="datePubFin" type="datetime" column="date_pub_fin" nullable="false"/>
+    <field name="dateDebut" type="datetime" column="date_debut" nullable="false"/>
+    <field name="dateFin" type="datetime" column="date_fin" nullable="false"/>
+    <field name="description" type="text" column="description" nullable="false"/>
+    <field name="titre" type="string" column="titre" length="255" nullable="false"/>
+    <field name="nombrePages" type="integer" column="nombre_pages" nullable="false"/>
+    <field name="type" type="string" column="type" length="255" nullable="false"/>
+    <many-to-one field="auteur" target-entity="HB\UserBundle\Entity\User">
+      <join-columns>
+        <join-column name="auteur_id" referenced-column-name="id" nullable="false"/>
+      </join-columns>
+    </many-to-one>
+    <one-to-many field="produits" target-entity="HB\HyperbricoBundle\Entity\Produit" mapped-by="catalogue" nullable="false">
+        <cascade>
+            <cascade-remove/>
+        </cascade>
+        <order-by>
+            <order-by-field name="reference" direction="ASC" />
+        </order-by>
+    </one-to-many>
+  </entity>
+</doctrine-mapping>

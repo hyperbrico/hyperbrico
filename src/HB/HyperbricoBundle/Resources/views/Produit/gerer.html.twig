@@ -1,0 +1,24 @@
+{% extends "HBHyperbricoBundle::layoutCatalogueAdmin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Gestion des produits
+{% endblock %}
+
+{% block chemin %}
+
+ {{ parent() }} <li class="active">Gestion des produits</li>
+
+{% endblock %}
+
+{% block contenu %}
+
+    <h2>Gestion des produits d{{ type == 'catalogue' ? 'u' : 'e la' }} {{ type }} "{{ catalogue.titre }}"</h2>
+    {% embed "HBHyperbricoBundle:Produit:formulaire.html.twig" %}
+    	{% block submit %}Soumettre{% endblock %}
+    {% endembed %}
+    
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript" src="{{ asset('js/produits.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,5 @@
+{{ entity.nom }} vous recommande {{ type == 'catalogue' ? 'le' :'la' }} {{ type }} "{{ catalogue.titre }}".
+Son adresse mail: {{ entity.mail }}
+{{ entity.message | raw}}
+
+Vous pouvez visualiser ce{{ type == 'catalogue' ? '' : 'tte' }} {{ type }} en cliquant sur ce lien: http://{{app.request.server.get('HTTP_HOST')}}{{ path('hb_hyperbrico_voir' ~ type|capitalize ~ 's', {'slug': catalogue.slug}) }}

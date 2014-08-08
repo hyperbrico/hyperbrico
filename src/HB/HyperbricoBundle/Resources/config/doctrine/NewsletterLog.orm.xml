@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="HB\HyperbricoBundle\Entity\NewsletterLogRepository" table="sf_newsletter_log" name="HB\HyperbricoBundle\Entity\NewsletterLog">
+    <id name="id" type="integer" column="id">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="objet" type="string" column="objet" length="255" nullable="false"/>
+    <field name="expediteur" type="string" column="expediteur" length="255" nullable="false"/>
+    <field name="destinataire" type="string" column="destinataire" length="255" nullable="false"/>
+    <field name="contenu" type="text" column="contenu" nullable="false"/>
+    <many-to-one field="newsletter" target-entity="HB\HyperbricoBundle\Entity\Newsletter" inversed-by="newsletterLogs">
+        <join-column name="newsletter_id" referenced-column-name="id" nullable="false"/>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

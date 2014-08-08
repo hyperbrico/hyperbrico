@@ -1,0 +1,17 @@
+{{ form_start(form) }}
+{% if form_errors(form) %}
+<div class="control-group error">
+  <span class="help-inline">{{ form_errors(form)|nl2br }}</span>
+</div>
+{% endif %}
+
+<div class="control-group{% if form_errors(form.statut) %} error{% endif %}">
+  {{ form_label(form.statut) }}
+  <div class="controls">
+    {{ form_widget(form.statut) }}
+    {% if form_errors(form.statut) %}<span class="help-inline">{{ form_errors(form.statut) }}</span>{% endif %}
+    <br /><br />
+    <button type="submit" class="btn btn-hyperbrico">Modifier</button>
+  </div>
+</div>
+{{ form_end(form) }}

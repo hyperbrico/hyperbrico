@@ -1,0 +1,25 @@
+{% extends "HBHyperbricoBundle::layoutNewsletter.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Gérer les adresses
+{% endblock %}
+ 
+{% block contenu %}
+ <h2>Les adresses de la newsletter</h2>
+ <table style="table-layout: fixed; width: 50%">
+  <th>Adresse mail</th>
+  <th>Supprimer</th>
+  {% for adresse in adresses %}
+    <tr>
+      <td style="word-wrap: break-word">
+        {{ adresse.mail }}
+      </td>
+      <td style="word-wrap: break-word">
+        <a href="{{ path('hb_hyperbrico_supprimerNewsletter', {'id': adresse.id}) }}">Supprimer</a>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+<br />
+
+{% endblock %}

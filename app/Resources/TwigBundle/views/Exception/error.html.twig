@@ -1,0 +1,14 @@
+{% extends "::layout.html.twig" %}
+
+{% block titre %}
+  {{ parent() }} - An Error Occurred: {{ status_text }}
+{% endblock %}
+
+{% block contenu %}
+	<h1>Une erreur inconnue est survenue !</h1>
+	<p>The server returned a "{{ status_code }} {{ status_text }}"</p>
+{% endblock %}
+
+{% block chemin %}
+	{{ parent() }} <li class="active">Erreur</li>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "HBHyperbricoBundle::layoutNewsAdmin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Gérer les news
+{% endblock %}
+
+{% block active %}
+  <li class="active">News</li>
+{% endblock %}
+ 
+{% block contenu %}
+ <h2>Les news</h2>
+ <p><a href="{{ path('hb_hyperbrico_ajouterNews') }}" target="_top">Ajouter une news</a></p>
+ <table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>Titre</th>
+      <th>Auteur</th>
+      <th>Création</th>
+      <th>Modification</th>
+      <th>Modifier</th>
+      <th>Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for nouvelle in news %}
+      <tr>
+        <td>
+          <a href="{{ path('hb_hyperbrico_voirNews', {'news_slug': nouvelle.slug}) }}">{{ nouvelle.titre }}</a>
+        </td>
+        <td>
+          {{ nouvelle.auteur }}
+        </td>
+        <td>
+          {{ nouvelle.dateCreation|date('d/m/y') }}
+        </td>
+        <td>
+          {{ nouvelle.dateModification|date('d/m/y') }}
+        </td>
+        <td>
+          <a href="{{ path('hb_hyperbrico_modifierNews', {'id': nouvelle.id}) }}">Modifier</a>
+        </td>
+        <td>
+          <a href="{{ path('hb_hyperbrico_supprimerNews', {'id': nouvelle.id}) }}">Supprimer</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<br />
+
+{% endblock %}

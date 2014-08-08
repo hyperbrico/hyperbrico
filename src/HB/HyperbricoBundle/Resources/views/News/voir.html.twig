@@ -1,0 +1,34 @@
+{% extends "now"|date('Ymd') <= date(news.datePubFin)|date('Ymd') ? "HBHyperbricoBundle::layoutNews.html.twig" : "HBHyperbricoBundle::layoutNewsArchives.html.twig" %}
+
+{% block titre %}
+  {{ parent() }} - {{ news.titre }}
+{% endblock %}
+
+{% block chemin %}
+  {{ parent() }} <li class="active">{{ news.titre }}</li>
+{% endblock %}
+
+{% block soustitre %}
+{% endblock %}
+ 
+{% block contenu %}
+  <h1>{{ news.titre }}</h1>
+  {% if app.user and is_granted("ROLE_ADMIN") %}
+    par {{ news.auteur }}, le {{ news.dateCreation|localizeddate('full', 'none') }} <br />
+  {% endif %}
+  <div>
+    {{ news.contenu|raw }}
+  </div>
+ 
+  {% if is_granted("ROLE_ADMIN") %}
+    <p>
+      <a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_modifierNews', {'id': news.id}) }}">Modifier la news</a>
+      <a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_supprimerNews', {'id': news.id}) }}">Supprimer la news</a>
+    </p>
+  {% endif %}
+
+  {% if "now"|date('Ymd') <= date(news.datePubFin)|date('Ymd') %}
+    <p><a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_archivesNews') }}">Voir les anciennes news</a></p>
+  {% endif %}
+ 
+{% endblock %}

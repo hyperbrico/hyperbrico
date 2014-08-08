@@ -1,0 +1,34 @@
+{% extends "HBHyperbricoBundle::layoutCatalogueArchives.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Archives des {{ type }}s 
+{% endblock %}
+
+{% block active %}
+  <li class="active">Les ancien{{ type == 'catalogue' ? '' : 'ne' }}s {{ type }}s</li>
+{% endblock %}
+
+{% block soustitre %}
+  <h1>Les ancien{{ type == 'catalogue' ? '' : 'ne'}}s {{ type }}s</h1>
+{% endblock %}
+ 
+{% block contenu %}
+    {% for catalogue in catalogues %}
+      {% if loop.index0 is even %}<div class="row-fluid">{% endif %}
+        <div class="span6">
+          <h2><a href="{{ path('hb_hyperbrico_voirArchives' ~ type|capitalize ~ 's', {'slug': catalogue.slug}) }}">{{ catalogue.titre }}</a></h2>
+          {% if app.user and is_granted("ROLE_ADMIN") %}
+            par {{ catalogue.auteur }}, le {{ catalogue.dateCreation|localizeddate('full', 'none') }} <br /><br />
+          {% endif %}
+          <p><strong>Du {{ catalogue.datePubDebut|localizeddate('full', 'none') }} au {{ catalogue.datePubFin|localizeddate('full', 'none') }}.</strong></p>
+          <p><a href="{{ path('hb_hyperbrico_voirArchives' ~ type|capitalize ~ 's', {'slug': catalogue.slug}) }}"><img src="{{ asset('uploads/' ~ type ~ 's/') }}{{ catalogue.slug }}/vignette.jpg" alt="{{ catalogue.titre }}" class="vignette img-polaroid" /></a></p>
+          <div>
+            {{ catalogue.description|slice(0,499)|raw }}{% if catalogue.description|length > 500 %}...{% endif %}
+          </div>
+        </div>
+      {% if loop.index0 is odd or loop.last %}</div>{% endif %}
+    {% else %}
+      <p>Aucun{{ type == 'catalogue' ? '' : 'e'}} {{ type }} disponible pour le moment.</p>
+    {% endfor %}
+
+{% endblock %}

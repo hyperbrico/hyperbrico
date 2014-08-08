@@ -1,0 +1,23 @@
+{% extends "HBHyperbricoBundle::layoutMail.html.twig" %}
+
+{% block title %}
+  Un ami(e) vous a recommandé {{ type == 'catalogue' ? 'le' :'la' }} {{ type }} "{{ catalogue.titre }}"
+{% endblock %}
+
+{% block lienVoir %}
+	http://{{app.request.server.get('HTTP_HOST')}}{{ path('hb_hyperbrico_voirMailRecommanderCatalogue', {'id': entity.id, 'token': entity.token}) }}
+{% endblock %}
+
+{% block soustitre %}
+  {{ entity.sujet }}
+{% endblock %}
+
+{% block contenu %}
+  <p><strong>{{ entity.nom }} vous recommande {{ type == 'catalogue' ? 'le' :'la' }} {{ type }} "{{ catalogue.titre }}".</strong><br />Son adresse mail: {{ entity.mail }}</p>
+  <span style="white-space:pre-wrap;">{{ entity.message }}</span>
+{% endblock %}
+
+{% block image %}
+  <p>Cliquez sur l'image ci-dessous pour visualiser {{ type == 'catalogue' ? 'le' :'la' }} {{ type }}.</p>
+  <a href="http://{{app.request.server.get('HTTP_HOST')}}{{ path('hb_hyperbrico_voir' ~ type|capitalize ~ 's', {'slug': catalogue.slug}) }}"><img src="http://{{app.request.server.get('HTTP_HOST')}}{{ asset('uploads/' ~ type ~ 's/') }}{{ catalogue.slug }}/{{ catalogue.slug }}{{ catalogue.nombrePages == 1 ? '' : '-0' }}.jpg" alt="{{ catalogue.titre }}" style="width:760px; display:block; margin:auto;" /></a>
+{% endblock %}

@@ -1,0 +1,2 @@
+$(function(){$.each([0,1],function(a){blueimp.Gallery(document.getElementById("images"+a).getElementsByTagName("a"),{container:"#viewer"+a,carousel:true,enableKeyboardNavigation:true,startSlideshow:false,continuous:false})})});
+$(function(){$.each([1,2,3,4],function(b,a){document.getElementById("link"+a).onclick=function(f){f=f||window.event;var g=f.target||f.srcElement,e=g.src?g.parentNode:g,d={container:"#container"+a,index:e,event:f},c=this.getElementsByTagName("a");blueimp.Gallery(c,d)}})});

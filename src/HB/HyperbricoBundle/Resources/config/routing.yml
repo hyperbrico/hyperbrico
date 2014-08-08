@@ -1,0 +1,305 @@
+hb_hyperbrico_accueil:
+    pattern:  /
+    defaults: { _controller: HBHyperbricoBundle:News:index }
+
+hb_hyperbrico_news:
+    pattern:  /news/
+    defaults: { _controller: HBHyperbricoBundle:News:index }
+
+hb_hyperbrico_voirNews:
+    pattern: /news/{news_slug}/
+    defaults: { _controller: HBHyperbricoBundle:News:voir}
+
+hb_hyperbrico_catalogues:
+    pattern: /catalogues/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:index}
+
+hb_hyperbrico_voirCatalogues:
+    pattern: /catalogues/{slug}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:voir}
+
+hb_hyperbrico_telechargerCatalogue:
+    pattern: /catalogues/telecharger/{slug}.pdf
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:telecharger}
+
+hb_hyperbrico_telechargerArchivesCatalogue:
+    pattern: /archives/catalogues/telecharger/{slug}.pdf
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:telecharger}
+
+hb_hyperbrico_recommanderCatalogue:
+    pattern: /catalogues/recommander/{slug}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:recommander}
+
+hb_hyperbrico_promotions:
+    pattern: /promotions/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:index}
+
+hb_hyperbrico_voirPromotions:
+    pattern: /promotions/{slug}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:voir}
+
+hb_hyperbrico_telechargerPromotion:
+    pattern: /promotions/telecharger/{slug}.pdf
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:telecharger}
+
+hb_hyperbrico_telechargerArchivesPromotion:
+    pattern: /archives/promotions/telecharger/{slug}.pdf
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:telecharger}
+
+hb_hyperbrico_recommanderPromotion:
+    pattern: /promotions/recommander/{slug}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:recommander}
+
+hb_hyperbrico_conseils:
+    pattern: /conseils/
+    defaults: { _controller: HBHyperbricoBundle:Conseil:index}
+
+hb_hyperbrico_magasins:
+    pattern: /magasins/
+    defaults: { _controller: HBHyperbricoBundle:Magasin:index}
+
+hb_hyperbrico_voirMagasinPapeete:
+    pattern: /magasins/hyperbrico_papeete_plan.{format}
+    defaults: { _controller: HBHyperbricoBundle:Magasin:voirPlanPapeete}
+    requirements:
+        format: pdf|png|xls|gif|jpg|mht
+
+hb_hyperbrico_services:
+    pattern: /services/
+    defaults: { _controller: HBHyperbricoBundle:Services:index}
+
+hb_hyperbrico_contact:
+    pattern: /contact/
+    defaults: { _controller: HBHyperbricoBundle:Contact:index}
+
+hb_hyperbrico_voirMailContact:
+    pattern: /contact/{id}/{token}/
+    defaults: { _controller: HBHyperbricoBundle:Contact:voirMail}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_voirMailRecommanderCatalogue:
+    pattern: /recommandations/{id}/{token}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:voirMail}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_ajouterLigneDeCommande:
+    pattern: /panier/ajouter/{id}/
+    defaults: { _controller: HBHyperbricoBundle:Commande:ajouterLigneDeCommande}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_supprimerLigneDeCommande:
+    pattern: /panier/supprimer/
+    defaults: { _controller: HBHyperbricoBundle:Commande:supprimerLigneDeCommande}
+
+hb_hyperbrico_modifierLigneDeCommande:
+    pattern: /panier/modifier/
+    defaults: { _controller: HBHyperbricoBundle:Commande:modifierLigneDeCommande}
+
+hb_hyperbrico_panier:
+    pattern: /panier/
+    defaults: { _controller: HBHyperbricoBundle:Commande:voir}
+
+hb_hyperbrico_tahitiCommande:
+    pattern: /panier/informations/tahiti/
+    defaults: { _controller: HBHyperbricoBundle:Commande:informations}
+
+hb_hyperbrico_ilesCommande:
+    pattern: /panier/informations/iles/
+    defaults: { _controller: HBHyperbricoBundle:Commande:informations}
+
+hb_hyperbrico_recapitulationCommande:
+    pattern: /panier/recapitulation/{id}/{token}/
+    defaults: { _controller: HBHyperbricoBundle:Commande:recapitulation}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_confirmationCommande:
+    pattern: /panier/confirmation/
+    defaults: { _controller: HBHyperbricoBundle:Commande:confirmation}
+
+hb_hyperbrico_getProduitsPanier:
+    pattern: /panier/ajout/get-produits/
+    defaults: { _controller: HBHyperbricoBundle:Commande:getProduits}
+
+hb_hyperbrico_inscriptionNewsletter:
+    pattern: /newsletter/inscription/
+    defaults: { _controller: HBHyperbricoBundle:Newsletter:inscription}
+
+hb_hyperbrico_desinscriptionNewsletter:
+    pattern: /newsletter/desinscription/{mail}/{token}/
+    defaults: { _controller: HBHyperbricoBundle:Newsletter:desinscription}
+
+hb_hyperbrico_voirNewsletter:
+    pattern: /newsletter/{id}/{mail}/{token}/
+    defaults: { _controller: HBHyperbricoBundle:Newsletter:voir}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_quiSommesNous:
+    pattern: /qui-sommes-nous/
+    defaults: { _controller: HBHyperbricoBundle:QuiSommesNous:index }
+
+hb_hyperbrico_archivesNews:
+    pattern: /archives/news/
+    defaults: { _controller: HBHyperbricoBundle:News:archives }
+
+hb_hyperbrico_voirArchivesNews:
+    pattern: /archives/news/{news_slug}/
+    defaults: { _controller: HBHyperbricoBundle:News:voirArchives }
+
+hb_hyperbrico_archivesCatalogues:
+    pattern: /archives/catalogues/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:archives }
+
+hb_hyperbrico_voirArchivesCatalogues:
+    pattern: /archives/catalogues/{slug}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:voirArchives }
+
+hb_hyperbrico_archivesPromotions:
+    pattern: /archives/promotions/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:archives }
+
+hb_hyperbrico_voirArchivesPromotions:
+    pattern: /archives/promotions/{slug}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:voirArchives }
+
+hb_hyperbrico_admin:
+    pattern: /admin/
+    defaults: { _controller: HBHyperbricoBundle:Admin:index}
+
+hb_hyperbrico_adminNews:
+    pattern: /admin/news/
+    defaults: { _controller: HBHyperbricoBundle:News:admin}
+
+hb_hyperbrico_ajouterNews:
+    pattern:  /admin/news/ajouter/
+    defaults: { _controller: HBHyperbricoBundle:News:ajouter }
+
+hb_hyperbrico_modifierNews:
+    pattern:  /admin/news/modifier/{id}/
+    defaults: { _controller: HBHyperbricoBundle:News:modifier }
+    requirements:
+        id: \d+
+
+hb_hyperbrico_supprimerNews:
+    pattern:  /admin/news/supprimer/{id}/
+    defaults: { _controller: HBHyperbricoBundle:News:supprimer }
+    requirements:
+        id: \d+
+
+hb_hyperbrico_adminCatalogue:
+    pattern: /admin/catalogues/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:admin}
+
+hb_hyperbrico_envoyerCatalogue:
+    pattern: /admin/catalogues/envoyer/{id}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:envoyer}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_ajouterCatalogue:
+    pattern: /admin/catalogues/ajouter/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:ajouter}
+
+hb_hyperbrico_modifierCatalogue:
+    pattern: /admin/catalogues/modifier/{id}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:modifier}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_supprimerCatalogue:
+    pattern: /admin/catalogues/supprimer/{id}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:supprimer}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_adminPromotion:
+    pattern: /admin/promotions/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:admin}
+
+hb_hyperbrico_envoyerPromotion:
+    pattern: /admin/promotions/envoyer/{id}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:envoyer}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_ajouterPromotion:
+    pattern: /admin/promotions/ajouter/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:ajouter}
+
+hb_hyperbrico_modifierPromotion:
+    pattern: /admin/promotions/modifier/{id}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:modifier}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_supprimerPromotion:
+    pattern: /admin/promotions/supprimer/{id}/
+    defaults: { _controller: HBHyperbricoBundle:Catalogue:supprimer}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_gererProduitCatalogue:
+    pattern: /admin/catalogues/{id}/produits/
+    defaults: { _controller: HBHyperbricoBundle:Produit:gerer}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_gererProduitPromotion:
+    pattern: /admin/promotions/{id}/produits/
+    defaults: { _controller: HBHyperbricoBundle:Produit:gerer}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_adminAdressesNewsletter:
+    pattern: /admin/newsletter/adresses/
+    defaults: { _controller: HBHyperbricoBundle:Newsletter:adminAdresses}
+
+hb_hyperbrico_adminNewsletter:
+    pattern: /admin/newsletter/
+    defaults: { _controller: HBHyperbricoBundle:Newsletter:admin}
+
+hb_hyperbrico_adminLogsNewsletter:
+    pattern: /admin/newsletter/{id}/logs/
+    defaults: { _controller: HBHyperbricoBundle:Newsletter:adminLogs}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_adminVoirNewsletter:
+    pattern: /admin/newsletter/{id}/logs/{destinataire}/
+    defaults: { _controller: HBHyperbricoBundle:Newsletter:adminVoir}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_envoyerNewsletter:
+    pattern: /admin/newsletter/envoyer/
+    defaults: { _controller: HBHyperbricoBundle:Newsletter:envoyer}
+
+hb_hyperbrico_supprimerNewsletter:
+    pattern: /admin/newsletter/supprimer/{id}/
+    defaults: { _controller: HBHyperbricoBundle:Newsletter:supprimer}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_adminCommande:
+    pattern: /admin/commande/
+    defaults: { _controller: HBHyperbricoBundle:Commande:admin}
+
+hb_hyperbrico_gererCommande:
+    pattern: /admin/commande/gerer/{id}/
+    defaults: { _controller: HBHyperbricoBundle:Commande:gerer}
+    requirements:
+        id: \d+
+
+hb_hyperbrico_adminContact:
+    pattern: /admin/contact/
+    defaults: { _controller: HBHyperbricoBundle:Contact:admin}
+
+hb_hyperbrico_gererContact:
+    pattern: /admin/contact/gerer/{id}/
+    defaults: { _controller: HBHyperbricoBundle:Contact:gerer}
+    requirements:
+        id: \d+

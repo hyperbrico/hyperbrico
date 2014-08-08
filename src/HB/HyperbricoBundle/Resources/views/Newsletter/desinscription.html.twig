@@ -1,0 +1,18 @@
+{% extends "HBHyperbricoBundle::layoutNewsletter.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Désinscription de : "{{ adresse.mail }}" 
+{% endblock %}
+
+{% block contenu %}
+	<h2>Désinscription de la newsletter</h2>
+ 
+	<p>
+		Etes-vous certain de vouloir vous désinscrire de la newsletter ?
+	</p>
+
+	<form action="{{ path('hb_hyperbrico_desinscriptionNewsletter', {'mail': adresse.mail, 'token': adresse.token}) }}" method="post">
+	<button type="submit" class="btn btn-hyperbrico">Se désinscrire</button>
+	{{ form_rest(form) }}
+	</form>
+{% endblock %}

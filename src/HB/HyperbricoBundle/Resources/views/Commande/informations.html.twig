@@ -1,0 +1,38 @@
+{% extends "HBHyperbricoBundle::layoutCommande.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Informations 
+{% endblock %}
+
+{% block stylesheets %}
+  {% if lieu == 'iles' %}
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/jquery-ui.css" type="text/css" />
+  {% endif %}
+{% endblock %}
+
+{% block soustitre %}
+  <h1>Demande de facture proforma pour {{ lieu == 'tahiti' ? 'Tahiti' : 'les îles' }}</h1>
+{% endblock %}
+ 
+{% block active %}
+  {{ parent() }} <li class="active">Demande de facture proforma pour {{ lieu == 'tahiti' ? 'Tahiti' : 'les îles' }}</li>
+{% endblock %}
+
+{% block contenu %}
+  <h2>Informations</h2>
+  {% embed "HBHyperbricoBundle:Commande:formulaireInformationsTahiti.html.twig" %}
+      {% block iles %}
+        {% if lieu == 'iles' %}
+          {% include "HBHyperbricoBundle:Commande:formulaireInformationsIles.html.twig" %}
+        {% endif %}
+      {% endblock %}
+  {% endembed %}
+{% endblock %}
+
+{% block javascripts %}
+  {% if lieu == 'iles' %}
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/date.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/icon-help.js') }}"></script>
+  {% endif %}
+{% endblock %}

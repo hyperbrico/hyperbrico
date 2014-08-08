@@ -1,0 +1,78 @@
+{% extends "HBHyperbricoBundle::layoutCatalogue.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Recommander un{{ type == 'catalogue' ? '' : 'e' }} {{ type }}
+{% endblock %}
+
+{% block chemin %}
+ {{ parent() }} <li class="active">Recommander</li>
+{% endblock %}
+ 
+{% block contenu %}
+
+<h2>Recommander l{{ type == 'catalogue' ? 'e' : 'a' }} {{ type }} "{{ catalogue.titre }}" à un(e) ami(e)</h2>
+
+{{ form_start(form) }}
+{% if form_errors(form) %}
+<div class="control-group error">
+  <span class="help-inline">{{ form_errors(form)|nl2br }}</span>
+</div>
+{% endif %}
+
+<div class="control-group{% if form_errors(form.nom) %} error{% endif %}">
+  {{ form_label(form.nom) }}
+  <div class="controls">
+    {{ form_widget(form.nom) }}
+    {% if form_errors(form.nom) %}<span class="help-inline">{{ form_errors(form.nom) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.mail) %} error{% endif %}">
+  {{ form_label(form.mail) }}
+  <div class="controls">
+    {{ form_widget(form.mail) }}
+    {% if form_errors(form.mail) %}<span class="help-inline">{{ form_errors(form.mail) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.mailAmi) %} error{% endif %}">
+  {{ form_label(form.mailAmi) }}
+  <div class="controls">
+    {{ form_widget(form.mailAmi) }}
+    {% if form_errors(form.mailAmi) %}<span class="help-inline">{{ form_errors(form.mailAmi) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.sujet) %} error{% endif %}">
+  {{ form_label(form.sujet) }}
+  <div class="controls">
+    {{ form_widget(form.sujet) }}
+    {% if form_errors(form.sujet) %}<span class="help-inline">{{ form_errors(form.sujet) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.message) %} error{% endif %}">
+  {{ form_label(form.message) }}
+  <div class="controls">
+    {{ form_widget(form.message) }}
+    {% if form_errors(form.message) %}<span class="help-inline">{{ form_errors(form.message) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.recaptcha) %} error{% endif %}">
+  {{ form_label(form.recaptcha) }}
+  <div class="controls">
+    {{ form_widget(form.recaptcha) }}
+    {% if form_errors(form.recaptcha) %}<span class="help-inline">Le captcha n'est pas valide</span>{% endif %}
+    <br /><br />
+    <button type="submit" class="btn btn-hyperbrico">Envoyer</button>
+  </div>
+</div>
+
+{{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ form_javascript(form) }}
+{% endblock %}

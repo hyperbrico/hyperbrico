@@ -1,0 +1,53 @@
+{% extends "HBHyperbricoBundle::layoutNewsletterAdmin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Envoie d'une newsletter 
+{% endblock %}
+
+{% block chemin %}
+
+ {{ parent() }}<li class="active">Envoyer</li>
+
+{% endblock %}
+ 
+{% block contenu %}
+
+<h2>Envoyer une newsletter</h2>
+
+{{ form_start(form) }}
+{% if form_errors(form) %}
+<div class="control-group error">
+  <span class="help-inline">{{ form_errors(form)|nl2br }}</span>
+</div>
+{% endif %}
+
+<div class="control-group{% if form_errors(form.objet) %} error{% endif %}">
+  {{ form_label(form.objet) }}
+  <div class="controls">
+    {{ form_widget(form.objet) }}
+    {% if form_errors(form.objet) %}<span class="help-inline">{{ form_errors(form.objet) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.contenu) %} error{% endif %}">
+  {{ form_label(form.contenu) }}
+  <div class="controls">
+    {{ form_widget(form.contenu) }}
+    {% if form_errors(form.contenu) %}<span class="help-inline">{{ form_errors(form.contenu) }}</span>{% endif %}
+    <br /><br />
+    <button type="submit" class="btn btn-hyperbrico">Envoyer</button>
+    <img id="loading" src="{{ asset('img/loading-metro.gif') }}" alt="loading" style="display:none; height:30px" />
+  </div>
+</div>
+
+{{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+  <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+  <script type="text/javascript">
+    CKEDITOR.replace( 'hb_hyperbricobundle_newslettertype[contenu]' );
+  </script>
+  <script type="text/javascript" src="{{ asset('js/loading.js') }}"></script>
+{% endblock %}

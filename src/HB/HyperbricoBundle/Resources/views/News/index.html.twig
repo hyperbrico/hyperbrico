@@ -1,0 +1,45 @@
+{% extends "HBHyperbricoBundle::layoutNews.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Accueil 
+{% endblock %}
+ 
+{% block active %}
+  <li class="active">News</li>
+{% endblock %}
+
+{% block contenu %}
+  <h1>Les News</h1>
+  {% for nouvelle in news %}
+    <h2>{{ nouvelle.titre }}</h2>
+    {% if app.user and is_granted("ROLE_ADMIN") %}
+      par {{ nouvelle.auteur }}, le {{ nouvelle.dateCreation|localizeddate('full', 'none') }} <br />
+    {% endif %}
+    <div>
+      {{ nouvelle.contenu|slice(0,999)|raw }}{% if nouvelle.contenu|length > 1000 %}... <a href="{{ path('hb_hyperbrico_voirNews', {'news_slug': nouvelle.slug}) }}">Lire la suite</a>{% endif %}
+    </div>
+  {% else %}
+    <p>Aucune news pour le moment.</p>
+  {% endfor %}
+  <p><br /><a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_archivesNews') }}">Voir les anciennes news</a></p>
+</section>
+<section id="derniersCatalogues" class="clearfix">
+  {% if catalogue or promotion %} 
+    <section class="pull-left" id="dernierCatalogue">
+      {% if catalogue %}
+        <h1>Catalogue</h1>
+        <h3><a href="{{ path('hb_hyperbrico_voirCatalogues', {'slug': catalogue[0].slug}) }}">{{ catalogue[0].titre }}</a></h3>
+        <a href="{{ path('hb_hyperbrico_voirCatalogues', {'slug': catalogue[0].slug}) }}"><img src="{{ asset('uploads/catalogues/') }}{{ catalogue[0].slug }}/vignette.jpg" alt="{{ catalogue[0].titre }}" class="vignette img-polaroid" /></a>
+      {% endif %}
+    </section>
+    <section id="dernierePromotion">
+      {% if promotion %}
+        <h1>Promotion</h1>
+        <h3><a href="{{ path('hb_hyperbrico_voirPromotions', {'slug': promotion[0].slug}) }}">{{ promotion[0].titre }}</a></h3>
+        <a href="{{ path('hb_hyperbrico_voirPromotions', {'slug': promotion[0].slug}) }}"><img src="{{ asset('uploads/promotions/') }}{{ promotion[0].slug }}/vignette.jpg" alt="{{ promotion[0].titre }}" class="vignette img-polaroid" /></a>
+      {% endif %}
+    </section>
+  {% endif %}
+  
+
+{% endblock %}

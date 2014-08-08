@@ -1,0 +1,24 @@
+{% extends "HBHyperbricoBundle::layoutNewsAdmin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Supprimer "{{ news.titre }}" 
+{% endblock %}
+
+{% block chemin %}
+
+ {{ parent() }} <li class="active">Supprimer</li>
+
+{% endblock %}
+
+{% block contenu %}
+	<h2>Supprimer une news</h2>
+ 
+	<p>
+		Etes-vous certain de vouloir supprimer la news "{{ news.titre }}" ?
+	</p>
+
+	<form action="{{ path('hb_hyperbrico_supprimerNews', {'id': news.id}) }}" method="post">
+	<button type="submit" class="btn btn-hyperbrico">Supprimer</button>
+	{{ form_rest(form) }}
+	</form>
+{% endblock %}

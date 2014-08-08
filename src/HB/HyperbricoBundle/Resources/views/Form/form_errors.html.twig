@@ -1,0 +1,9 @@
+{% block form_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+        {% for error in errors %}
+            {{ error.messageTemplate|trans(error.messageParameters, 'validators') }}
+        {% endfor %}
+    {% endif %}
+{% endspaceless %}
+{% endblock form_errors %}

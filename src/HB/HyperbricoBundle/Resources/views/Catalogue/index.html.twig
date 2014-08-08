@@ -1,0 +1,36 @@
+{% extends "HBHyperbricoBundle::layoutCatalogue.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - {{ type|capitalize }}s 
+{% endblock %}
+
+{% block active %}
+  <li class="active">{{ type|capitalize }}s</li>
+{% endblock %}
+ 
+{% block contenu %}
+  <h1>Les {{ type|capitalize }}s</h1>
+    {% for catalogue in catalogues %}
+      {% if loop.index0 is even %}<div class="row-fluid">{% endif %}
+        <div class="span6">
+          <h2><a href="{{ path('hb_hyperbrico_voir' ~ type|capitalize ~ 's', {'slug': catalogue.slug}) }}">{{ catalogue.titre }}</a></h2>
+          {% if app.user and is_granted("ROLE_ADMIN") %}
+            par {{ catalogue.auteur }}, le {{ catalogue.dateCreation|localizeddate('full', 'none') }} <br /><br />
+          {% endif %}
+          <p><strong>Du {{ catalogue.dateDebut|localizeddate('full', 'none') }} au {{ catalogue.dateFin|localizeddate('full', 'none') }}.</strong></p>
+          <p><a href="{{ path('hb_hyperbrico_voir' ~ type|capitalize ~ 's', {'slug': catalogue.slug}) }}"><img src="{{ asset('uploads/' ~ type ~ 's/') }}{{ catalogue.slug }}/vignette.jpg" alt="{{ catalogue.titre }}" class="vignette img-polaroid" /></a></p>
+          <div>
+            {{ catalogue.description|slice(0,499)|raw }}{% if catalogue.description|length > 500 %}...{% endif %}
+          </div>
+          {#<p>
+            <a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_telecharger' ~ type|capitalize, {'slug': catalogue.slug}) }}" target="_top">Télécharger le catalogue</a>
+            <a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_recommander' ~ type|capitalize, {'slug': catalogue.slug}) }}" target="_top">Recommander le catalogue</a>
+          </p>#}
+        </div>
+      {% if loop.index0 is odd or loop.last %}</div>{% endif %}
+    {% else %}
+      <p>Aucun{{ type == 'catalogue' ? '' : 'e'}} {{ type }} disponible pour le moment.</p>
+    {% endfor %}
+  <p><br /><a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_archives' ~ type|capitalize ~ 's') }}">Voir les ancien{{ type == 'catalogue' ? '' : 'ne'}}s {{ type }}s</a></p>
+
+{% endblock %}

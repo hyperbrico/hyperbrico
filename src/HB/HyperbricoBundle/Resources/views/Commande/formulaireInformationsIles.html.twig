@@ -1,0 +1,32 @@
+<div class="control-group{% if form_errors(form.ile) %} error{% endif %}">
+  {{ form_label(form.ile) }}
+  <div class="controls">
+    {{ form_widget(form.ile) }}
+    {% if form_errors(form.ile) %}<span class="help-inline">{{ form_errors(form.ile) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.nomBateau) %} error{% endif %}">
+  {{ form_label(form.nomBateau) }}
+  <div class="controls">
+    {{ form_widget(form.nomBateau) }}
+    {% if form_errors(form.nomBateau) %}<span class="help-inline">{{ form_errors(form.nomBateau) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.dateDepartBateau) %} error{% endif %}">
+  {{ form_label(form.dateDepartBateau) }}
+  <div class="controls">
+    {{ form_widget(form.dateDepartBateau) }}
+    {% if form_errors(form.dateDepartBateau) %}<span class="help-inline">{{ form_errors(form.dateDepartBateau) }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="control-group{% if form_errors(form.fretADestination) %} error{% endif %}">
+  {{ form_label(form.fretADestination) }}
+  <div class="controls">
+    {{ form_widget(form.fretADestination) }}
+    <span id="icon-help" data-content="Dans le cas d’un fret à destination, assurez-vous de bien avoir un compte sur le bateau, sans quoi la marchandise ne pourra être déposée" rel="popover"><img src="{{ asset('img/info.png') }}" alt="icon-info" /></span>
+    {% if form_errors(form.fretADestination) %}<span class="help-inline">{{ form_errors(form.fretADestination) }}</span>{% endif %}
+  </div>
+</div>

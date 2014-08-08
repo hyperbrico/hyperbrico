@@ -1,0 +1,287 @@
+{% extends "HBHyperbricoBundle::layoutCommande.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Panier 
+{% endblock %}
+ 
+{% block active %}
+  <li class="active">Panier</li>
+{% endblock %}
+
+{% block soustitre %}
+  <h1>Panier</h1>
+{% endblock %}
+
+{% set total = 0 %}
+{% for article in panier %}
+  {% set total = total + (article.produit.prix * article.quantite) %}
+{% endfor %}
+
+{% block contenu %}
+  {% if not panier is empty or not panierPerso is empty %}
+    
+  {% endif %}
+  <div class="appendTitle appendTitleRight"><h2>Produits du catalogue ou de la promotion</h2><span><a href="#" id="MaJAll" style="display:none;">Mettre à jour toutes</a></span></div>
+  {% if not panier is empty %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Référence</th>
+          <th>Désignation</th>
+          <th>Qté</th>
+          <th>Prix Unitaire</th>
+          <th>Total</th>
+          <th>Supprimer</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for article in panier %}
+          <tr style="height:72px;">
+            <td>{{ article.produit.reference }}</td>
+            <td>{{ article.produit.designation }}</td>
+            <td style="width:82px;"><div class="text-center"><input type="text" value="{{ article.quantite }}" class="span1" min="0" pattern="[\d ]+" required="required" style="margin-bottom:5px;" /><br /><a href="#" style="display:none;"><small>Mettre à jour</small></a><a href="#" style="display:none;"><small>Enlever</small></a></div></td>
+            <td><span class="prix">{{ article.produit.prix|number_format(0, ',', ' ') }}</span> XPF</td>
+            <td><span class="prixTotal">{{ (article.produit.prix * article.quantite)|number_format(0, ',', ' ') }}</span> XPF</td>
+            <td><a href="#">Supprimer</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="text-right"><strong>Total:</strong> <span id="total">{{ total|number_format(0, ',', ' ') }}</span> XPF</p>
+  {% else %}
+    <p><br />Aucun produit.</p>
+  {% endif %}
+  <div class="appendTitle appendTitleLeft"><h2>Produits hors catalogue</h2><span id="icon-help" data-content="Vous désirez un produit qui n'est pas présent dans le catalogue ou dans la promotion? Entrez sa description et la quantité que vous désirez, optionnellement, vous pouvez préciser la marque et la référence du fabricant si vous la connaissez." rel="popover"><img src="{{ asset('img/info.png') }}" alt="icon-info" /></span></div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Référence</th>
+          <th>Description<span title="Obligatoire">*</span></th>
+          <th>Marque</th>
+          <th>Qté</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if not panierPerso is empty %}
+          {% for article in panierPerso %}
+            <tr style="height:72px;">
+              <td>{{ article.reference }}</td>
+              <td><span class="span5">{{ article.description }}</span></td>
+              <td>{{ article.marque }}</td>
+              <td style="width:82px;"><div class="text-center"><input type="text" value="{{ article.quantite }}" class="span1" min="0" pattern="[\d ]+" required="required" style="margin-bottom:5px;" /><br /><a href="#" style="display:none;"><small>Mettre à jour</small></a><a href="#" style="display:none;"><small>Enlever</small></a></div></td>
+              <td><a href="#">Supprimer</a></td>
+            </tr>
+          {% endfor %}
+        {% endif %}
+          <tr>
+            {{ form_start(form) }}
+              <td>{{ form_widget(form.reference) }}</td>
+              <td><span id="inputDescription">{{ form_widget(form.description) }}</span></td>
+              <td>{{ form_widget(form.marque) }}</td>
+              <td><span id="inputQuantite">{{ form_widget(form.quantite) }}</span></td>
+              <td><button type="submit" class="btn btn-hyperbrico">Ajouter</button></td>
+            {{ form_end(form) }}
+          </tr>
+      </tbody>
+    </table>
+
+  <p><br />Vous souhaitez faire une demande de facture proforma pour : <a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_tahitiCommande') }}">Tahiti</a> <a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_ilesCommande') }}">Les îles</a></p>
+{% endblock %}
+
+{% block javascripts %}
+  <script type="text/javascript" src="{{ asset('js/jquery.number.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/icon-help.js') }}"></script>
+  <script type="text/javascript">
+    $(function () {
+      var $changeArray = $.map(new Array($('tbody tr:not(:last)').length), function(i,j) { return false; });
+
+      $('form[name=ajoutProduit]').submit(function() {
+        ajouterLigne();
+        return false;
+      });
+
+      $('tbody tr:not(:last)').each(function($index, $element) {
+        handleEvents($index,
+                     $($element),
+                     $(this).find('input'),
+                     $(this).find('input').siblings('a:first'),
+                     $(this).find('input').siblings('a:last'),
+                     $(this).children().last().children());
+      });
+
+      $('tbody tr:last td:eq(3) input').focusout(function() {
+        setDefaultIfBlank($(this));
+      });
+
+      $('tbody tr:last td:eq(3) input').number(true, 0, ',', ' ');
+
+      function setDefaultIfBlank($element) {
+        if ($element.val() === '') {
+          $element.val($element.prop('defaultValue'));
+        }
+      }
+
+      function handleEvents($index, $ligne, $quantite, $maj, $enlever, $supprimer) {
+        $quantite.number(true, 0, ',', ' ');
+        $quantite.focusout(function() {
+          setDefaultIfBlank($(this));
+        });
+        $quantite.on('keyup change', function() {
+          handleChangeSingle($quantite, $index);
+          handleMaJAll();
+        });
+        $maj.click(function($event) {
+          $event.preventDefault();
+          modifierLigne($ligne, getIndex($ligne, $index));
+          handleMaJSingle($index);
+        });
+        $enlever.click(function($event) {
+          $event.preventDefault();
+          supprimerLigne($ligne, getIndex($ligne, $index));
+          handleMaJSingle($index);
+        });
+        $supprimer.click(function($event) {
+          $event.preventDefault();
+          supprimerLigne($ligne, getIndex($ligne, $index));
+          handleMaJSingle($index);
+        });
+      }
+
+      function countPrixTotal($row) {
+        $row.find('.prixTotal').text($.number($row.find('.prix').text().replace(' ', '') * $row.find('input').val(), 0, ',', ' '));
+      }
+
+      function countTotal() {
+        var $total = 0;
+        $('table:first tbody tr').each(function() {
+          $total += parseInt($(this).find('.prixTotal').text().replace(' ', ''));
+        });
+        $('#total').text($.number($total, 0, ',', ' '));
+      }
+      
+      $('#MaJAll').click(function($event) {
+        $event.preventDefault();
+        $('tbody tr:not(:last)').each(function($index, $element) {
+          var $element = $($element);
+          var $input = $element.find('input');
+          if ($input.val() == 0) {
+            supprimerLigne($element, getIndex($element, $index));
+          } else if ($input.val() != $input.prop("defaultValue")) {
+            modifierLigne($element, getIndex($element, $index));
+          }
+          $changeArray[$index] = false;
+        });
+        handleMaJAll($changeArray);
+      });
+
+      function handleMaJSingle($index) {
+        $changeArray[$index] = false;
+        handleMaJAll($changeArray);
+      }
+
+      function handleChangeSingle($element, $index) {
+        if ($element.val() == '0') {
+          $element.siblings('a:first').hide();
+          $element.siblings('a:last').fadeIn(300);
+          $changeArray[$index] = true;
+        } else if ($element.val() == $element.prop("defaultValue") || $element.val() == '') {
+          $element.siblings('a:first').hide();
+          $element.siblings('a:last').hide();
+          $changeArray[$index] = false;
+        } else if ($.isNumeric($element.val())) {
+          $element.siblings('a:last').hide();
+          $element.siblings('a:first').fadeIn(300);
+          $changeArray[$index] = true;
+        }
+      }
+
+      function handleMaJAll() {
+        $nombreMaJ = 0;
+        $.each($changeArray, function($index, $value) {
+          if ($value == true) {
+            $nombreMaJ++;
+          }
+        });
+        if ($nombreMaJ > 1) {
+          $('#MaJAll').fadeIn(300);
+        } else {
+          $('#MaJAll').fadeOut(300);
+        }
+      }
+
+      function getIndex($element, $index) {
+        return ($element.parent().parent().is($('table:first')) && $('table').length == 2 ? -1 : $index - {{ panier | length }});
+      }
+
+      function supprimerLigne($element, $ind) {
+        $.ajax({
+          type: 'POST',
+          url: "{{ path('hb_hyperbrico_supprimerLigneDeCommande') }}",
+          data: {'reference': $element.children(':first').text(),
+                  'index': $ind},
+          success: function($response) {
+            $element.fadeOut(500, function() {
+              $(this).remove();
+              countTotal();
+            });
+            $('#headerRight').children(':last').html($response);
+          }
+        });
+      }
+
+      function modifierLigne($element, $ind) {
+        $.ajax({
+          type: 'POST',
+          url: "{{ path('hb_hyperbrico_modifierLigneDeCommande') }}",
+          data: { 'reference': $element.children(':first').text(), 
+                  'quantite': $element.find('input').val(),
+                  'index': $ind },
+          success: function($response) {
+            var $input = $element.find('input');
+            $input.prop("defaultValue", $input.val());
+            $input.siblings('a:first').fadeOut(300);
+            countPrixTotal($element);
+            countTotal();
+            $('#headerRight').children(':last').html($response);
+          }
+        });
+      }
+
+      function ajouterLigne() {
+        $.ajax({
+          type: 'POST',
+          url: "{{ path('hb_hyperbrico_panier') }}",
+          data: $('form[name=ajoutProduit]').serializeArray(),
+          success: function($response) {
+           $response = $response.split('????');
+            if ($response[0] == 'error') {
+              if ($response[1] == 'description') {
+                $('#inputDescription').addClass('control-group error');
+              }
+              if ($response[2] == 'quantite') {
+                $('#inputQuantite').addClass('control-group error');
+              }
+            } else {
+              $changeArray.push(false);
+              $('#inputDescription').removeClass();
+              $('#inputQuantite').removeClass();
+              $ligne = $($response[2]);
+              $('#headerRight').children(':last').html($response[1]);
+              $('tr:last').children(':eq(4)').find('input').val('1');
+              $('tr:last').children(':gt(0):lt(3)').find('input').val('');
+              $quantite = $('<input type="text" value="' + $response[3] + '" class="span1" min="0" pattern="[\\d ]+" required="required" style="margin-bottom:5px;" />');
+              $maj = $('<a hidden href="#" style="display:none;"><small>Mettre à jour</small></a>');
+              $enlever = $('<a hidden href="#" style="display:none;"><small>Enlever</small></a>');
+              $supprimer = $('<a href="#">Supprimer</a>');
+              $ligne.children(':eq(3)').children().append($quantite).append('<br />').append($maj).append($enlever);
+              $ligne.children('td:last').html($supprimer);
+              $('tr:last').before($ligne);
+              handleEvents($changeArray.length - 1, $ligne, $quantite, $maj, $enlever, $supprimer);
+            }
+          }
+        });
+      }
+    });
+  </script>
+{% endblock %}

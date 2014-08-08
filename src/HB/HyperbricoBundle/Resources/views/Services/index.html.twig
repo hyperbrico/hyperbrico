@@ -1,0 +1,57 @@
+{% extends "HBHyperbricoBundle::layoutServices.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Services 
+{% endblock %}
+
+{% block active %}
+  <li class="active">Services</li>
+{% endblock %}
+ 
+{% block contenu %}
+	<h2>Moyens de paiement acceptés</h2>
+	<p>
+		Espèces, chèques (sur présentation d’une pièce d’identité), cartes bancaires (carte locale, Visa, Mastercard), virements.
+	</p>
+	<h2>Etablissement de Devis ou de Proforma</h2>
+	<p>
+		A tout moment, une demande de Devis ou Proforma peut nous être envoyée, soit par téléphone, par fax ou mail. L'important est de nous laisser des coordonnées afin que l'on puisse vous contacter.
+	</p>
+	<h2>Livraisons</h2>
+	<p>
+		Votre magasin <span class="hyperbrico">HYPER BRICO</span> met à votre disposition un service de livraison 5 jours sur 7, du lundi au vendredi, sur toute l’île de Tahiti, ainsi qu’au bateau (voir conditions en magasin).
+	</p>
+	<p>
+		Le prix de ce service de livraison varie en fonction du lieu de livraison.
+	</p>
+	<p>
+		Cependant, il est à noter que les livraisons se font au pied du camion, c’est-à-dire que la marchandise sera déposée à l’endroit où le camion a accès.
+	</p>
+	<p>
+		Afin de faciliter le transport des marchandises pour les personnes habitant dans les îles, <span class="hyperbrico">HYPER BRICO</span> peut également régler pour vous le fret au bateau. Il suffira juste de le préciser avant votre passage en caisse et les vendeurs calculeront son montant afin de pouvoir vous le facturer.
+	</p>
+
+	<h2>Conditions générales du Service Après-Vente</h2>
+	<p>
+		<span class="hyperbrico">HYPER BRICO</span> vous offre également une garantie sur le matériel à fonctionnement électrique ou thermique (voir conditions en magasin).
+	</p>
+	<p>
+		Ce Service Après-Vente peut également prendre en charge la réparation de vos matériels personnels, mêmes si ces derniers n’ont pas été vendus par <span class="hyperbrico">HYPER BRICO</span>.
+	</p>
+
+	<h2>4 fois sans frais de la Banque de Polynésie</h2>
+	<img src="{{ asset('img/banque_de_polynesie.png') }}" alt="banque de polynésie" class="img-polaroid pull-right" />
+	<p>
+		Ce produit permet au client de la Banque de Polynésie, de régler un achat en 4 fois, sans surcoût ni aucun frais financiers pour un achat dont le montant varie entre 50 000 XPF et 500 000 XPF.
+	</p>
+	<p>
+		Et cela, sous réserve d’acceptation du dossier par la banque.
+	</p>
+	<p><strong>Pour de plus amples renseignements sur ces services, veuillez vous rapprocher du bureau Cr&eacute;dit-Devis &agrave; l&rsquo;entr&eacute;e de votre magasin.</strong></p>
+	<div style="clear:both"></div>
+	<h2>Paiement par virement pour les clients des îles</h2>
+	<p>
+		Les clients des îles peuvent effectuer des achats en nous contactant par téléphone, fax ou mail. Une facture proforma vous sera alors adressée, ce qui vous permettra d'effectuer un virement bancaire. Dès que le virement aura été reçu par notre banque, la marchandise sera livrée au port.
+	</p>
+
+{% endblock %}

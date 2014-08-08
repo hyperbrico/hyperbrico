@@ -1,0 +1,18 @@
+{% extends "HBHyperbricoBundle::layoutContactAdmin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Gérer un contact 
+{% endblock %}
+
+{% block soustitre %}
+  <h1>Gérer un contact</h1>
+{% endblock %}
+ 
+{% block active %}
+  {{ parent() }} <li class="active">Gérer un contact</li>
+{% endblock %}
+
+{% block contenu %}
+  <h2>Information sur le contact</h2>
+  {% include "HBHyperbricoBundle:Contact:formulaireGerer.html.twig" %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "HBHyperbricoBundle::layoutAdmin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Administration 
+{% endblock %}
+
+{% block activeAdmin %}
+  <li class="active">Administration
+{% endblock %}
+
+{% block contenu %}
+	<p><a href="{{ path('hb_hyperbrico_adminNews') }}">Gestion des news</a></p>
+	<p><a href="{{ path('hb_hyperbrico_adminCatalogue') }}">Gestion des catalogues</a></p>
+	<p><a href="{{ path('hb_hyperbrico_adminPromotion') }}">Gestion des promotions</a></p>
+	<p><a href="{{ path('hb_hyperbrico_adminNewsletter') }}">Gestion des newsletters</a></p>
+	<p><a href="{{ path('hb_hyperbrico_adminCommande') }}">Gestion des demandes</a></p>
+	<p><a href="{{ path('hb_hyperbrico_adminContact') }}">Gestion des contacts</a></p>
+{% endblock %}

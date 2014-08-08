@@ -1,0 +1,22 @@
+@media print {
+    #header div.pull-right, #topnavLeft, #topnavRight, .breadcrumb, #footer {
+        display:none;
+    }
+    #main {
+        border:none;
+    }
+    a:link:after {
+        content: none;
+    }
+    body {
+        background: white;
+        font-family: Georgia, 'Times New Roman', serif;
+    }
+    #contenu {
+        width: 100%;
+        margin: 0;
+        float: none;
+        background: transparent;
+        font-size: 12pt;
+    }
+}

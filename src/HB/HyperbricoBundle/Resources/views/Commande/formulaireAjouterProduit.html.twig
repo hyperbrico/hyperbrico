@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+{{ form_label(form.page) }}
+{{ form_widget(form.page) }}
+{{ form_label(form.produit) }}
+{{ form_widget(form.produit) }}
+<span id="labelQuantite">
+{{ form_label(form.quantite) }}
+</span>
+<span id="inputQuantite">
+{{ form_widget(form.quantite) }}
+</span>
+<button type="submit" class="btn btn-hyperbrico" id="ajoutPanier">Ajouter au panier</button> <span id="icon-help" data-content="Vous pouvez sélectionner vos produits du catalogue et nous envoyer votre demande. Une facture proforma vous sera alors envoyée après vérification de leurs disponibilités. Cette facture proforma vous permettra d’effectuer le paiement et votre marchandise sera préparée après la validation de votre virement auprès de notre banque (délai d’environ 72 heures)." rel="popover" data-title="Principe des factures proforma"><img src="{{ asset('img/info.png') }}" alt="icon-info" /></span>
+{{ form_end(form) }}

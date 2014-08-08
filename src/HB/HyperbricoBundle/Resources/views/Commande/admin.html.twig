@@ -1,0 +1,55 @@
+{% extends "HBHyperbricoBundle::layoutCommandeAdmin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Gérer les demandes
+{% endblock %}
+
+{% block active %}
+  <li class="active">Demande</li>
+{% endblock %}
+ 
+{% block contenu %}
+ <h2>Les demandes de facture proforma</h2>
+ <table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>Numéro</th>
+      <th>Client</th>
+      <th>Ile</th>
+      <th>Articles</th>
+      <th>Demandé le</th>
+      <th>Statut</th>
+      <th>Modifier</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for commande in commandes %}
+      <tr>
+        <td>
+          <a href="{{ path('hb_hyperbrico_recapitulationCommande', {'id': commande.id, 'token': commande.token}) }}">{{ commande.numeroCommande }}</a>
+        </td>
+        <td>
+          {{ commande.nom|capitalize }} {{ commande.prenom|capitalize }}
+        </td>
+        <td>
+          {{ commande.ile|capitalize }}
+        </td>
+        <td>
+          {{ commande.nombreArticle }}
+        </td>
+        <td>
+          {{ commande.dateDemande|date('d/m/y') }}
+        </td>
+        <td>
+          {{ commande.statut }}
+        </td>
+        <td>
+          <a href="{{ path('hb_hyperbrico_gererCommande', {'id': commande.id}) }}">Gérer</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<br />
+
+{% endblock %}

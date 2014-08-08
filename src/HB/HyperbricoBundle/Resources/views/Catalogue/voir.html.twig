@@ -1,0 +1,215 @@
+{% extends "now"|date('Ymd') <= date(catalogue.datePubFin)|date('Ymd') ? "HBHyperbricoBundle::layoutCatalogue.html.twig" : "HBHyperbricoBundle::layoutCatalogueArchives.html.twig" %}
+
+{% block xmlfb %} xmlns:fb="http://ogp.me/ns/fb#"{% endblock %}
+
+{% block titre %}
+  {{ parent() }} - {{ catalogue.titre }}
+{% endblock %}
+
+{% block stylesheets %}
+  {% if catalogue.nombrePages > 0 %}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/viewer.css') }}" />
+  {% endif %}
+{% endblock %}
+
+{% block chemin %}
+ {{ parent() }} <li class="active">{{ catalogue.titre }}</li>
+{% endblock %}
+ 
+{% block contenu %}
+  <h1>{{ catalogue.titre }}</h1>
+  {% if app.user and is_granted("ROLE_ADMIN") %}
+    par {{ catalogue.auteur }}, le {{ catalogue.dateCreation|localizeddate('full', 'none') }} <br /><br />
+  {% endif %}
+  <strong>Du {{ catalogue.dateDebut|localizeddate('full', 'none') }} au {{ catalogue.dateFin|localizeddate('full', 'none') }}.</strong>
+  <div>
+    {{ catalogue.description|raw }}
+  </div>
+
+  <div class="btn-toolbar">
+    {% if "now"|date('Ymd') <= date(catalogue.datePubFin)|date('Ymd') %}
+      <a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_telecharger' ~ type|capitalize, {'slug': catalogue.slug}) }}">Télécharger</a>
+      <a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_recommander' ~ type|capitalize, {'slug': catalogue.slug}) }}">Recommander</a>
+    {% else %}
+      <a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_telechargerArchives' ~ type|capitalize, {'slug': catalogue.slug}) }}">Télécharger</a>
+    {% endif %}
+    {% if is_granted("ROLE_ADMIN") %}
+      <div class="btn-group">
+        <a class="btn btn-hyperbrico dropdown-toggle"  data-toggle="dropdown" href="#"><i class="icon-user icon-white"></i> Actions <span class="caret white-caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="{{ path('hb_hyperbrico_envoyer' ~ type|capitalize, {'id': catalogue.id}) }}"><i class="icon-envelope"></i> Envoyer</a></li>
+          <li><a href="{{ path('hb_hyperbrico_modifier' ~ type|capitalize, {'id': catalogue.id}) }}"><i class="icon-edit"></i> Modifier</a></li>
+          <li><a href="{{ path('hb_hyperbrico_gererProduit' ~ type|capitalize, {'id': catalogue.id}) }}"><i class="icon-wrench"></i> Gérer les produits</a></li>
+          <li><a href="{{ path('hb_hyperbrico_supprimer' ~ type|capitalize, {'id': catalogue.id}) }}"><i class="icon-remove"></i> Supprimer</a></li>
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+ 
+  
+
+  {% if "now"|date('Ymd') <= date(catalogue.datePubFin)|date('Ymd') %}
+    {{ render(controller("HBHyperbricoBundle:Commande:ajouterLigneDeCommande", {'id': catalogue.id})) }}
+  {% endif %}
+
+  <div id="success" class="alert alert-success" style="display: none;">
+    Produit bien ajouté au panier !
+  </div>
+  <div id="error" class="alert alert-error" style="display: none;">
+    Erreur lors de l'ajout du produit au panier. N'auriez-vous pas entrer une mauvaise quantité?
+  </div>
+
+  {% if catalogue.nombrePages > 1 %}
+    <div id="images">
+      {% for i in 0..catalogue.nombrePages - 1 %}
+      <a href="{{ asset('uploads/' ~ type ~ 's/') }}{{ catalogue.slug }}/{{ catalogue.slug }}-{{ loop.index0 }}.jpg" title="page {{ loop.index }} d{{ type == 'catalogue' ? 'u' : 'e la'}} {{ type }} {{ catalogue.titre }}"></a>
+      {% endfor %}
+    </div>
+    <div id="viewer" class="blueimp-gallery blueimp-gallery-carousel blueimp-gallery-controls">
+      <div class="slides"></div>
+      <a class="prev">‹</a>
+      <a class="next">›</a>
+      <ol class="indicator"></ol>
+    </div>
+  {% else %}
+    <div id="viewer" class="blueimp-gallery">
+      <div class="slides"></div>
+      <a class="close">×</a>
+    </div>
+    <div id="link">
+      <a href="{{ asset('uploads/' ~ type ~ 's/') }}{{ catalogue.slug }}/{{ catalogue.slug }}.jpg">
+          <img src="{{ asset('uploads/' ~ type ~ 's/') }}{{ catalogue.slug }}/{{ catalogue.slug }}.jpg" alt="{{ catalogue.titre }}" class="img-polaroid">
+      </a>
+    </div>
+    <br />
+  {% endif %}
+    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="fr">Tweeter</a>
+    <div class="g-plusone" data-annotation="inline" data-width="250"></div>
+    <fb:like send="true" width="450" show_faces="false" font="arial"></fb:like>
+  
+  {% if "now"|date('Ymd') <= date(catalogue.datePubFin)|date('Ymd') %}
+    <p><br /><a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_archives' ~ type|capitalize ~ 's') }}">Voir les ancien{{ type == 'catalogue' ? '' : 'ne'}}s {{ type }}s</a></p>
+  {% endif %}
+  
+{% endblock %}
+
+{% block javascripts %}
+  <script type="text/javascript" src="{{ asset('js/icon-help.js') }}"></script>
+  {% if "now"|date('Ymd') <= date(catalogue.datePubFin)|date('Ymd') %}
+    <script type="text/javascript">
+      $(function () {
+        $('input[id$=_quantite]').keypress(function (e) {
+          return /\d/.test(String.fromCharCode(event.keyCode));
+        });
+        $('form[name=ajoutProduit]').submit(function() {
+          $("#error").hide();
+          $.ajax({
+            type: 'POST',
+            url: "{{ path('hb_hyperbrico_ajouterLigneDeCommande', {'id': catalogue.id}) }}",
+            data: $('form[name=ajoutProduit]').serializeArray(),
+            success: function($response) {
+              if ($response == 'error') {
+                $('#error').show();
+                $('#labelQuantite').addClass('text-error');
+                $('#inputQuantite').addClass('control-group error');
+              } else {
+                $('#labelQuantite').removeClass();
+                $('#inputQuantite').removeClass();
+                $('#success').show();
+                window.setTimeout(function() { $('#success').fadeOut('slow'); }, 2000);
+                $('#headerRight').children(':last').html($response);
+              }
+             }
+          });
+          return false;
+        });
+        $('select[id$=_produit]').change(function() {
+            $('input[id$=_quantite]').val('1');
+        });
+        $('input[id$=_quantite]').focusout(function() {
+          if ($(this).val() === '') {
+            $(this).val($(this).prop('defaultValue'));
+          }
+        });      
+      });
+    </script>
+  {% endif %}
+  <script type="text/javascript" src="{{ asset('js/viewer.js') }}"></script>
+  {% if catalogue.nombrePages > 1 %}
+    <script type="text/javascript">
+      $(function () {
+        blueimp.Gallery(
+          document.getElementById('images').getElementsByTagName('a'),
+          {
+            container: '#viewer',
+            carousel: true,
+            enableKeyboardNavigation: true,
+            startSlideshow: false,
+            continuous: false{% if "now"|date('Ymd') <= date(catalogue.datePubFin)|date('Ymd') %},
+            onslide: getProduits{% endif %}
+          }
+        );
+        {% if "now"|date('Ymd') <= date(catalogue.datePubFin)|date('Ymd') %}
+          function getProduits($index, $slide) {
+            $('select[id$=_produit]').html('<option>Récupération des produits...</option>').show();
+            $('#ajoutPanier').prop('disabled', true);
+            $('input[id$=_page]').val($index);
+            $('input[id$=_quantite]').val('1');
+            var $id = {{ catalogue.id }};
+            $.ajax({
+              type: 'GET',
+              url: "{{ path('hb_hyperbrico_getProduitsPanier') }}",
+              data: {'page': $index, 'id': $id},
+              success: function($response) {
+                  $('select[id$=_produit]').html($response).show();
+                  if ($response != '<option value="none">Aucun produit disponible sur cette page.</option>') {
+                    $('#ajoutPanier').prop('disabled', false);
+                  }
+               }
+            });
+          }
+        {% endif %}
+      });
+    </script>
+  {% else %}
+    <script>
+      document.getElementById('link').onclick = function (event) {
+          event = event || window.event;
+          var target = event.target || event.srcElement,
+              link = target.src ? target.parentNode : target,
+              options = {container: '#viewer', index: link, event: event},
+              links = this.getElementsByTagName('a');
+          blueimp.Gallery(links, options);
+      };
+      {% if "now"|date('Ymd') <= date(catalogue.datePubFin)|date('Ymd') %}
+        if ($('select[id$=_produit]').children().length == 0) {
+          $('select[id$=_produit]').html('<option value="none">Aucun produit disponible sur cette page.</option>').show();
+          $('#ajoutPanier').prop('disabled', true);
+        }
+      {% endif %}
+    </script>
+  {% endif %}
+{% endblock %}
+
+{% block facebook %}
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=494372727316745";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+  <script type="text/javascript">
+    window.___gcfg = {lang: 'fr'};
+
+    (function() {
+      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+  </script>
+  <script>
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+  </script>
+{% endblock %}

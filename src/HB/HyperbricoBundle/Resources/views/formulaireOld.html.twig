@@ -1,0 +1,27 @@
+<div class="collectionProduits" data-prototype="{% autoescape %}<tr><td>{% endautoescape %}{{ form_widget(form.produits.vars.prototype.reference)|e }}{% autoescape %}</td><td>{% endautoescape %}{{ form_widget(form.produits.vars.prototype.designation)|e }}{% autoescape %}</td><td>{% endautoescape %}{{ form_widget(form.produits.vars.prototype.marque)|e }}{% autoescape %}</td><td>{% endautoescape %}{{ form_widget(form.produits.vars.prototype.prix)|e }}{% autoescape %}</td><td>{% endautoescape %}{{ form_widget(form.produits.vars.prototype.tva)|e }}{% autoescape %}</td></tr>{% endautoescape %}">
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table class="collectionProduits2">
+	    <tr>
+		    <th>{{ form_label(form.produits.vars.prototype.reference) }}</th>
+		    <th>{{ form_label(form.produits.vars.prototype.designation) }}</th>
+		    <th>{{ form_label(form.produits.vars.prototype.marque) }}</th>
+		    <th>{{ form_label(form.produits.vars.prototype.prix) }}</th>
+		    <th>{{ form_label(form.produits.vars.prototype.tva) }}</th>
+	    </tr>
+    	{% for produit in form.produits %}
+	        <tr>
+		        <td>{{ form_widget(produit.reference) }}</td>
+		        <td>{{ form_widget(produit.designation) }}</td>
+		        <td>{{ form_widget(produit.marque) }}</td>
+		        <td>{{ form_widget(produit.prix) }}</td>
+		        <td>{{ form_widget(produit.tva) }}</td>
+		        <td><a class="remove" title="Supprimer" href="javascript:void()">Supprimer</a></td>
+	        </tr>
+    	{% endfor %}
+    </table>
+
+</div>
+
+
+ 

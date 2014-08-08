@@ -1,0 +1,111 @@
+{% extends "HBHyperbricoBundle::layoutCommande.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Panier 
+{% endblock %}
+ 
+{% block active %}
+  {{ parent() }} <li><a href="{{ path('hb_hyperbrico_' ~ (information ? (information.ile == 'tahiti' ? 'tahiti' : 'iles') : 'tahiti') ~ 'Commande') }}">Demande de facture proforma pour {{ information ? (information.ile == 'tahiti' ? 'Tahiti' : 'les îles') : 'Tahiti' }}</a> <span class="divider">/</span></li><li class="active">Confirmation de la demande</li>
+{% endblock %}
+
+{% block soustitre %}
+  <h1>Confirmation de la demande</h1>
+{% endblock %}
+
+{% set total = 0 %}
+{% for article in panier %}
+  {% set total = total + (article.produit.prix * article.quantite) %}
+{% endfor %}
+
+{% block contenu %}
+  <h2>Produits du catalogue ou de la promotion</h2>
+  {% if not panier is empty %}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Référence</th>
+          <th>Désignation</th>
+          <th>Qté</th>
+          <th>Prix Unitaire</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for article in panier %}
+          <tr>
+            <td>{{ article.produit.reference }}</td>
+            <td>{{ article.produit.designation }}</td>
+            <td>{{ article.quantite }}</td>
+            <td>{{ article.produit.prix|number_format(2, ',', ' ') }} XPF</td>
+            <td>{{ (article.produit.prix * article.quantite)|number_format(2, ',', ' ') }} XPF</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="text-right"><strong>Total:</strong> {{ total|number_format(2, ',', ' ') }} XPF</p>
+    <p><a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_panier') }}">Modifier les produits</a>
+  {% else %}
+    <p>Aucun produit.</p>
+  {% endif %}
+  <h2>Autre produits</h2>
+  {% if not panierPerso is empty %}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Référence</th>
+          <th>Description</th>
+          <th>Marque</th>
+          <th>Qté</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for article in panierPerso %}
+            <tr>
+              <td>{{ article.reference }}</td>
+              <td><span class="span5">{{ article.description }}</span></td>
+              <td>{{ article.marque }}</td>
+              <td>{{ article.quantite }}</td>
+            </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+    <p><a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_panier') }}">Modifier les produits</a>
+  {% else %}
+    <p>Aucun produits.</p>
+  {% endif %}
+  <h2>Informations</h2>
+  {% if not information is empty %}
+    <address>
+      <strong>{{ information.nom|capitalize }} {{ information.prenom|capitalize }}</strong><br />
+      Téléphone domicile: {{ information.numeroMaison }}<br />
+      Téléphone portable: {{ information.numeroVini }}<br />
+      Mail: {{ information.mail }}<br />
+      Adresse: {{ information.lieuHabitation }}<br />
+      {% if not information.ile is sameas('tahiti') %}
+        Ile: {{ information.ile }}<br />
+        Nom du bateau: {{ information.nomBateau }}<br />
+        Date de départ du bateau: {{ information.dateDepartBateau|localizeddate('full', 'none') }}<br />
+        Fret à destination: {{ information.fretADestination }}
+      {% endif %}
+    </address>
+    <p><a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_' ~ (information ? (information.ile == 'tahiti' ? 'tahiti' : 'iles') : 'Tahiti') ~ 'Commande') }}">Modifier les informations</a></p>
+    {% if information.informationComplementaire %}
+      <h2>Informations complémentaires</h2>
+      <span style="white-space:pre-wrap;">{{ information.informationComplementaire }}</span>
+      <p><a class="btn btn-hyperbrico" href="{{ path('hb_hyperbrico_' ~ (information ? (information.ile == 'tahiti' ? 'tahiti' : 'iles') : 'Tahiti') ~ 'Commande') }}">Modifier les informations</a></p>
+    {% endif %}
+    
+  {% else %}
+    <p>Aucune information rentrée.</p>
+  {% endif %}
+  <h2>Confirmation</h2>
+  {% if (not panier is empty or not panierPerso is empty) and not information is empty %}
+    <p><em>A noter qu'un délai de 24 heures est nécessaire pour répondre à votre demande de proforma{% if not information.ile is sameas('tahiti') %} et qu'un délai de 72 heures est nécessaire entre le moment où vous effectuer le virement et le moment où l'on doit déposer la marchandise au bateau{% endif %}.</em></p>
+    <form action="{{ path('hb_hyperbrico_confirmationCommande') }}" method="post">
+      <button type="submit" class="btn btn-hyperbrico">Envoyer ma demande</button>
+      {{ form_rest(form) }}
+    </form>
+  {% else %}
+    <p><em>Veuillez choisir des produits du catalogue ou entrer des produits qui ne sont pas présents dans le catalogue pour valider votre demande</em></p>
+  {% endif %}
+{% endblock %}

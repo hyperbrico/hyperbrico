@@ -1,0 +1,23 @@
+{% extends "HBHyperbricoBundle::layoutMail.html.twig" %}
+
+{% block title %}
+  Contact mail depuis hyperbrico.pf
+{% endblock %}
+
+{% block lienVoir %}
+	http://{{app.request.server.get('HTTP_HOST')}}{{ path('hb_hyperbrico_voirMailContact', {'id': entity.id, 'token': entity.token}) }}
+{% endblock %}
+
+{% block soustitre %}
+  Contact mail depuis hyperbrico.pf
+{% endblock %}
+
+{% block contenu %}
+  <p>
+  	De: {{ entity.nom }}<br />
+  	Le: {{ entity.dateEnvoi|date('d/m/y') }}<br />
+  	Email: {{ entity.mail }}<br />
+  	Téléphone: {{ entity.telephone }}<br />
+  	Message: <br /><span style="white-space:pre-wrap;">{{ entity.message }}</span>
+  </p>
+{% endblock %}

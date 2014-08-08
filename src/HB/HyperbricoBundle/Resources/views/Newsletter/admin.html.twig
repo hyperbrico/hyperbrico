@@ -1,0 +1,44 @@
+{% extends "HBHyperbricoBundle::layoutNewsletterAdmin.html.twig" %}
+ 
+{% block titre %}
+  {{ parent() }} - Gérer les newsletters
+{% endblock %}
+
+{% block active %}
+  <li class="active">Newsletter</li>
+{% endblock %}
+ 
+{% block contenu %}
+ <h2>Les newsletters</h2>
+ <p><a href="{{ path('hb_hyperbrico_envoyerNewsletter') }}">Envoyer une newsletter</a><br /><a href="{{ path('hb_hyperbrico_adminAdressesNewsletter') }}">Gestion des adresses de la newsletter</a></p>
+ <table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>Objet</th>
+      <th>Auteur</th>
+      <th>Date d'envoi</th>
+      <th>Voir les logs</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for newsletter in newsletters %}
+      <tr>
+        <td>
+          <a href="{{ path('hb_hyperbrico_adminVoirNewsletter', {'id': newsletter.id, 'destinataire': newsletters[0].newsletterLogs[0].destinataire }) }}">{{ newsletter.objet }}</a>
+        </td>
+        <td>
+          {{ newsletter.auteur }}
+        </td>
+        <td>
+          {{ newsletter.dateEnvoi|date('d/m/y') }}
+        </td>
+        <td>
+          <a href="{{ path('hb_hyperbrico_adminLogsNewsletter', {'id': newsletter.id}) }}">Voir les logs</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<br />
+
+{% endblock %}
