@@ -8,7 +8,7 @@ Getting started
 
 - Install msysgit
 - Install xampp
-- Clone the repos in xampp/htdocs/
+- Clone the repos in xampp/htdocs/ : git clone https://github.com/hyperbrico/hyperbrico.git
 - Set the PATH for php
 - Download composer: php -r "eval('?>'.file_get_contents('http://getcomposer.org/installer'));"
 - Create the user hyperbrico
