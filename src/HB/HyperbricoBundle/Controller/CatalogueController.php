@@ -176,7 +176,7 @@ class CatalogueController extends Controller
 
           $newsletter->setAuteur($this->getUser());
           
-          $numSent = $this->get('hb_sendNewsletter')->sendNewsletter($adresses, $newsletter, 'HBHyperbricoBundle:Catalogue:catalogueMail', $catalogue, $type);
+          $numSent = $this->get('hb_sendNewsletter')->sendNewsletter($adresses, $newsletter, 'HBHyperbricoBundle:Catalogue:catalogueMail', false, $catalogue, $type);
 
           $this->get('session')->getFlashBag()->add('success', 'Newsletter a bien été envoyée à ' . $numSent . ' adresses.');
 

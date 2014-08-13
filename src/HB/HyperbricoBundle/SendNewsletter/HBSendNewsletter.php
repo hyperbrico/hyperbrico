@@ -7,31 +7,46 @@ use HB\HyperbricoBundle\Entity\NewsletterLog;
 class HBSendNewsletter
 {
 	protected $mailerDefault;
-  protected $mailerImmediate;
 	protected $em;
 	protected $template;
 	protected $csrf_provider;
 	protected $from;
 	protected $secret;
   protected $mail_brico;
+  protected $mailerGifi;
+  protected $username_gifi;
+  protected $password_gifi;
 
-	public function __construct(\Swift_Mailer $mailerDefault, \Swift_Mailer $mailerImmediate, $em, $template, $csrf_provider, $from, $secret, $mail_brico)
+	public function __construct(\Swift_Mailer $mailerDefault, $em, $template, $csrf_provider, $from, $secret, $mail_brico, $username_gifi, $password_gifi)
   {
     $this->mailerDefault = $mailerDefault;
-    $this->mailerImmediate = $mailerImmediate;
     $this->em = $em;
     $this->template = $template;
     $this->csrf_provider = $csrf_provider;
     $this->from = $from;
     $this->secret = $secret;
     $this->mail_brico = $mail_brico;
+    $this->username_gifi = $username_gifi;
+    $this->password_gifi = $password_gifi;
   }
 
-  public function sendNewsletter($adresses, $newsletter, $view, $catalogue = null, $type = null)
+  public function sendNewsletter($adresses, $newsletter, $view, $isGifi, $catalogue = null, $type = null)
   {
   	$numSent = 0;
 	  $this->em->persist($newsletter);
 	  $this->em->flush();
+    if ($isGifi) {
+      $transport = \Swift_SmtpTransport::newInstance()
+                  ->setHost('smtp.live.com')
+                  ->setPort(587)
+                  ->setEncryption('tls')
+                  ->setUsername($this->username_gifi)
+                  ->setPassword($this->password_gifi);
+      $mailer = \Swift_Mailer::newInstance($transport);
+    } else {
+      $mailer = $this->mailerDefault;
+    }
+    
 	  foreach ($adresses as $adresse) {
 	    $contenu = $this->template->render($view . '.html.twig', array('newsletter' => $newsletter, 'adresse' => $adresse, 'token' => $adresse->getToken(), 'catalogue' => $catalogue, 'type' => $type));
 	    $plain = $this->template->render($view . '.txt.twig', array('contenu' => html_entity_decode(strip_tags($newsletter->getContenu())), 'newsletter' => $newsletter, 'adresse' => $adresse, 'token' => $adresse->getToken(), 'catalogue' => $catalogue, 'type' => $type));
@@ -41,7 +56,7 @@ class HBSendNewsletter
 	              ->setTo($adresse->getMail())
                 ->setBody($plain, 'text/plain')
                 ->addPart($contenu, 'text/html');
-	    $numSent += $this->mailerImmediate->send($message);              
+	    $numSent += $mailer->send($message);              
 
 	    $newsletterLog = new NewsletterLog();
 	    $newsletterLog->setObjet($newsletter->getObjet());
@@ -73,7 +88,7 @@ class HBSendNewsletter
   							->setTo($destinataire)
   							->setBody($plain, 'text/plain')
                 ->addPart($html, 'text/html');
-  	$hasSentOne = $this->mailerImmediate->send($message);
+  	$hasSentOne = $this->mailerDefault->send($message);
   	if ($isContact) {
   		$message = \Swift_Message::newInstance()
 	  							->setSubject($entity->getSujet())
@@ -81,7 +96,7 @@ class HBSendNewsletter
 	  							->setTo($this->mail_brico)
 	  							->setBody($plain, 'text/plain')
                   ->addPart($html, 'text/html');
-	  	$hasSentTwo = $this->mailerImmediate->send($message);
+	  	$hasSentTwo = $this->mailerDefault->send($message);
   	}
   	if ($hasSentOne && $hasSentTwo) {
   		return true;

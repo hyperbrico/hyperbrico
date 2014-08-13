@@ -63,17 +63,18 @@ doctrine:
 swiftmailer:
     default_mailer: default
     mailers:
+        # default:
+        #     transport: %mailer_transport2%
+        #     host:      %mailer_host2%
+        #     username:  %mailer_user2%
+        #     password:  %mailer_password2%
+        #     spool:     { type: memory }
+        #     # spool:
+        #     #     type:  file
+        #     #     path:  "%kernel.root_dir%/spool"
+        #     port:      %mailer_port2%
+        #     encryption: %mailer_encryption2%
         default:
-            transport: %mailer_transport%
-            host:      %mailer_host%
-            username:  %mailer_user%
-            password:  %mailer_password%
-            spool:
-                type:  file
-                path:  "%kernel.root_dir%/spool"
-            port:      %mailer_port%
-            encryption: %mailer_encryption%
-        immediate:
             transport: %mailer_transport%
             host:      %mailer_host%
             username:  %mailer_user%

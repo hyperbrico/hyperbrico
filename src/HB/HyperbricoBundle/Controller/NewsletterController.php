@@ -71,7 +71,7 @@ class NewsletterController extends Controller
 
           $newsletter->setAuteur($this->getUser());
           
-          $numSent = $this->get('hb_sendNewsletter')->sendNewsletter($adresses, $newsletter, 'HBHyperbricoBundle:Newsletter:newsletterMail');
+          $numSent = $this->get('hb_sendNewsletter')->sendNewsletter($adresses, $newsletter, 'HBHyperbricoBundle:Newsletter:newsletterMail', false);
 
           $this->get('session')->getFlashBag()->add('success', 'Newsletter a bien été envoyée à ' . $numSent . ' adresses.');
 

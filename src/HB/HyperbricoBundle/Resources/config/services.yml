@@ -9,5 +9,5 @@ services:
 
     hb_sendNewsletter:
         class: HB\HyperbricoBundle\SendNewsletter\HBSendNewsletter
-        arguments: [@swiftmailer.mailer.default, @swiftmailer.mailer.immediate, @doctrine.orm.entity_manager, @templating, @form.csrf_provider, %mailer_user%, %secret%, %mail_brico%]
+        arguments: [@swiftmailer.mailer.default, @doctrine.orm.entity_manager, @templating, @form.csrf_provider, %mailer_user%, %secret%, %mail_brico%, %username_gifi%, %password_gifi%]
 
